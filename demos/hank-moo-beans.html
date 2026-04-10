@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hank, Moo &amp; Beans — Tulsa&#39;s Trusted Legal Team</title>
+<meta name="description" content="Hank, Moo &amp; Beans in Tulsa, OK. Tulsa&#39;s Trusted Legal Team. Call (918) 555-0155.">
+
+<meta property="og:title" content="Hank, Moo &amp; Beans — Tulsa&#39;s Trusted Legal Team">
+<meta property="og:description" content="Tulsa&#39;s Trusted Legal Team — serving Tulsa, OK. Call (918) 555-0155.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hankmoobeans.com">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Hank, Moo &amp; Beans",
+  "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600",
+  "telephone": "(918) 555-0155",
+  "email": "info@hankmoobeans.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "401 S Boston Ave, Suite 1200",
+    "addressLocality": "Tulsa",
+    "addressRegion": "OK",
+    "postalCode": "74103"
+  },
+  "url": "https://hankmoobeans.com",
+  "description": "Tulsa&#39;s Trusted Legal Team"
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy: #1B2A4A;
+  --navy-dark: #111c33;
+  --red: #c0392b;
+  --red-dark: #a02d21;
+  --light-gray: #f8f9fa;
+  --gray-border: #e5e7eb;
+  --white: #ffffff;
+  --text: #2c3e50;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background: var(--white);
+}
+h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--navy); letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.1; }
+h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); margin-bottom: 0.8rem; }
+h3 { font-size: 1.35rem; margin-bottom: 0.5rem; font-weight: 700; }
+a { color: var(--navy); text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ========== NAV ========== */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-bottom: 3px solid var(--red);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.5rem; max-width: 1200px; margin: 0 auto;
+}
+.nav-logo {
+  font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 800;
+  color: var(--navy); text-transform: uppercase; letter-spacing: 0.02em;
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-links a { color: var(--navy); font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: color 0.2s; }
+.nav-links a:hover { color: var(--red); }
+.nav-cta {
+  background: var(--red); color: var(--white) !important;
+  padding: 0.7rem 1.3rem; border-radius: 0;
+  font-weight: 700; text-transform: uppercase;
+}
+.nav-cta:hover { background: var(--red-dark); }
+.hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 4px;
+}
+.hamburger span { display: block; width: 26px; height: 3px; background: var(--navy); }
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--white); flex-direction: column;
+    padding: 1.5rem; gap: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+}
+
+/* ========== TICKER ========== */
+.ticker {
+  background: var(--navy); color: var(--white);
+  overflow: hidden; white-space: nowrap;
+  padding: 0.7rem 0;
+  font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.ticker-track {
+  display: inline-block; padding-left: 100%;
+  animation: ticker-scroll 30s linear infinite;
+}
+.ticker-track span { padding: 0 1.25rem; }
+.ticker-track .dot { color: var(--red); font-size: 1.2rem; }
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative; min-height: 100vh;
+  background-image: linear-gradient(rgba(17,28,51,0.82), rgba(17,28,51,0.75)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600');
+  background-size: cover; background-position: center;
+  background-attachment: fixed;
+  display: flex; align-items: center;
+  color: var(--white);
+}
+@media (max-width: 900px) { .hero { background-attachment: scroll; } }
+.hero-grid {
+  display: grid; grid-template-columns: 1.2fr 0.9fr;
+  gap: 3rem; align-items: center;
+  max-width: 1200px; margin: 0 auto; padding: 6rem 1.5rem;
+}
+.hero-content h1 { color: var(--white); margin-bottom: 1rem; text-transform: uppercase; }
+.hero-content p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
+.btn-primary {
+  display: inline-block;
+  background: var(--red); color: var(--white);
+  padding: 1rem 2rem; border-radius: 0; border: none;
+  font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.03em;
+  transition: background 0.2s, transform 0.2s; cursor: pointer;
+}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); color: var(--white); }
+.btn-navy {
+  display: inline-block;
+  background: var(--navy); color: var(--white);
+  padding: 1rem 2rem; border-radius: 0; border: none;
+  font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.03em;
+  cursor: pointer;
+}
+.btn-navy:hover { background: var(--navy-dark); color: var(--white); }
+.hero-form {
+  background: var(--white); color: var(--text);
+  border-radius: 0; border-top: 5px solid var(--red);
+  padding: 2rem;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+}
+.hero-form-header {
+  background: var(--navy); color: var(--white);
+  margin: -2rem -2rem 1.25rem; padding: 1rem 2rem;
+  text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 800;
+}
+.hero-form input, .hero-form textarea, .hero-form select {
+  width: 100%; padding: 0.8rem; margin-bottom: 0.75rem;
+  border: 2px solid var(--gray-border); border-radius: 0;
+  background: var(--white); font-family: inherit; font-size: 1rem;
+}
+.hero-form button { width: 100%; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+}
+
+/* ========== SECTIONS ========== */
+section { padding: 5rem 0; }
+.section-gray { background: var(--light-gray); }
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-header .eyebrow {
+  color: var(--red); font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; font-size: 0.9rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.about-stat {
+  background: var(--navy); color: var(--white);
+  padding: 3rem; text-align: center;
+  border-top: 5px solid var(--red);
+}
+.about-stat .number {
+  font-family: 'Montserrat', sans-serif; font-size: 5.5rem; font-weight: 800;
+  color: var(--white); line-height: 1;
+}
+.about-stat .label { font-size: 1.1rem; color: rgba(255,255,255,0.85); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+@media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* Why Choose Us */
+.features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.feature-card {
+  background: var(--white); padding: 2rem 1.5rem;
+  border-top: 4px solid var(--navy);
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(27,42,74,0.08);
+  transition: transform 0.2s, border-color 0.2s;
+}
+.feature-card:hover { transform: translateY(-4px); border-top-color: var(--red); }
+.feature-card svg { width: 48px; height: 48px; color: var(--red); margin-bottom: 1rem; }
+.feature-card h4 { color: var(--navy); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 1rem; }
+@media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .features { grid-template-columns: 1fr; } }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.service-card {
+  background: var(--white); border-top: 4px solid var(--navy);
+  overflow: hidden;
+  box-shadow: 0 6px 25px rgba(27,42,74,0.1);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 50px rgba(192,57,43,0.2);
+  border-top-color: var(--red);
+}
+.service-card .img { height: 220px; background-size: cover; background-position: center; }
+.service-card .body { padding: 1.75rem 1.5rem; }
+@media (max-width: 900px) { .services { grid-template-columns: 1fr; } }
+
+/* Reviews */
+.reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.review-card {
+  background: var(--white); padding: 2rem;
+  border-top: 4px solid var(--red);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.review-card .stars { color: #f5b301; font-size: 1.3rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+.review-card .author { margin-top: 1rem; font-weight: 700; color: var(--navy); text-transform: uppercase; font-size: 0.9rem; }
+@media (max-width: 900px) { .reviews { grid-template-columns: 1fr; } }
+
+/* FAQ */
+.faq { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  background: var(--white); margin-bottom: 0.75rem;
+  border-left: 4px solid var(--navy);
+  border-top: 1px solid var(--gray-border);
+  border-right: 1px solid var(--gray-border);
+  border-bottom: 1px solid var(--gray-border);
+  overflow: hidden;
+}
+.faq-item.open { border-left-color: var(--red); }
+.faq-question {
+  padding: 1.25rem 1.5rem; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-weight: 700; color: var(--navy); font-size: 1.05rem;
+  font-family: 'Montserrat', sans-serif; text-transform: uppercase;
+}
+.faq-question::after {
+  content: '+'; font-size: 1.5rem; color: var(--red);
+  transition: transform 0.2s;
+}
+.faq-item.open .faq-question::after { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  padding: 0 1.5rem;
+  transition: max-height 0.3s, padding 0.3s;
+}
+.faq-item.open .faq-answer { max-height: 400px; padding: 0 1.5rem 1.25rem; }
+
+/* CTA Banner */
+.cta-banner {
+  background: var(--red); color: var(--white);
+  text-align: center; padding: 5rem 1.5rem;
+}
+.cta-banner h2 { color: var(--white); margin-bottom: 1.5rem; text-transform: uppercase; }
+.cta-banner .btn-primary { background: var(--navy); }
+.cta-banner .btn-primary:hover { background: var(--navy-dark); }
+
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.contact-form input, .contact-form textarea {
+  width: 100%; padding: 0.85rem; margin-bottom: 1rem;
+  border: 2px solid var(--gray-border); border-radius: 0;
+  background: var(--white); font-family: inherit; font-size: 1rem;
+}
+.contact-form textarea { min-height: 140px; }
+.contact-map { overflow: hidden; min-height: 400px; border-top: 4px solid var(--red); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.contact-map iframe { width: 100%; height: 100%; min-height: 400px; border: 0; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.footer { background: var(--navy-dark); color: rgba(255,255,255,0.85); padding: 4rem 0 0; }
+.footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.footer h4 { color: var(--white); text-transform: uppercase; margin-bottom: 1rem; font-size: 1rem; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 0.5rem; }
+.footer a { color: rgba(255,255,255,0.8); }
+.footer a:hover { color: var(--red); }
+.footer-bottom {
+  margin-top: 3rem; padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center; font-size: 0.85rem;
+  display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+}
+.seo-badge {
+  display: inline-block; padding: 0.3rem 0.75rem;
+  background: rgba(255,255,255,0.1); border-radius: 20px;
+  font-size: 0.85rem;
+}
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+.domain-note { background: rgba(192,57,43,0.2); padding: 0.75rem; border-left: 3px solid var(--red); margin-top: 1rem; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<!-- 1. NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Hank, Moo &amp; Beans</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="tel:(918) 555-0155" class="nav-cta">Call (918) 555-0155</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 2. TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Hank, Moo &amp; Beans</span><span class="dot">●</span><span>Tulsa, OK</span><span class="dot">●</span><span>Personal Injury</span><span class="dot">●</span><span>Business Law</span><span class="dot">●</span><span>Estate Planning</span><span class="dot">●</span><span>Tulsa&#39;s Trusted Legal Team</span><span class="dot">●</span><span>Hank, Moo &amp; Beans</span><span class="dot">●</span><span>Tulsa, OK</span><span class="dot">●</span><span>Personal Injury</span><span class="dot">●</span><span>Business Law</span><span class="dot">●</span><span>Estate Planning</span><span class="dot">●</span><span>Tulsa&#39;s Trusted Legal Team</span>
+  </div>
+</div>
+
+<!-- 3. HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <h1>When It Matters Most, We&#39;re In Your Corner</h1>
+      <p>Tulsa&#39;s Trusted Legal Team</p>
+      <a href="#contact" class="btn-primary">Free Consultation</a>
+    </div>
+    <div class="hero-form">
+      <div class="hero-form-header">Free Estimate</div>
+      <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="text" placeholder="Street Address">
+        <textarea placeholder="Describe your project" rows="3"></textarea>
+        <button type="submit" class="btn-primary">Free Consultation</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ABOUT -->
+<section id="about" class="section-gray">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="section-header" style="text-align:left; margin-bottom:1.5rem;">
+          <div class="eyebrow">About Us</div>
+          <h2>Trusted in Tulsa for 28+ Years</h2>
+        </div>
+        <p>Hank, Moo &amp; Beans has been serving Tulsa families and businesses since 1998. Founded by James Hank, our firm is built on a simple principle: treat every client the way you&#39;d want your own family to be treated. Whether you&#39;re facing a personal injury, planning your estate, or navigating a business dispute, we bring deep experience, straight talk, and fierce advocacy to every case we take.</p>
+        <p style="margin-top: 1rem;"><strong>James Hank</strong>, Owner</p>
+        <a href="#contact" class="btn-navy" style="margin-top: 1.5rem;">Free Consultation</a>
+      </div>
+      <div class="about-stat">
+        <div class="number">28+</div>
+        <div class="label">Years Protecting Tulsa Homes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. WHY CHOOSE US -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Why Choose Us</div>
+      <h2>The Hank, Moo &amp; Beans Advantage</h2>
+    </div>
+    <div class="features">
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L3 7 L3 12 C3 17 7 21 12 22 C17 21 21 17 21 12 L21 7 Z"/></svg>
+        <h4>Licensed & Insured</h4>
+        <p>Fully certified professionals.</p>
+      </div>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12 L11 14 L15 9"/></svg>
+        <h4>Quality Guaranteed</h4>
+        <p>Backed by warranty protection.</p>
+      </div>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6 L12 12 L16 14"/></svg>
+        <h4>24/7 Emergency</h4>
+        <p>Available when you need us most.</p>
+      </div>
+      <div class="feature-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z"/></svg>
+        <h4>5-Star Rated</h4>
+        <p>Hundreds of happy customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. SERVICES -->
+<section id="services" class="section-gray">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">What We Do</div>
+      <h2>Our Services</h2>
+    </div>
+    <div class="services">
+      <div class="service-card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800')"></div>
+        <div class="body">
+          <h3>Personal Injury</h3>
+          <p>Aggressive representation for car accidents, workplace injuries, and wrongful death cases. No fee unless we win.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800')"></div>
+        <div class="body">
+          <h3>Business Law</h3>
+          <p>From entity formation to complex commercial litigation, we guide Tulsa businesses at every stage of growth.</p>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800')"></div>
+        <div class="body">
+          <h3>Estate Planning</h3>
+          <p>Wills, trusts, probate, and estate administration handled with care and clarity for families and their legacies.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Testimonials</div>
+      <h2>What Our Customers Say</h2>
+    </div>
+    <div class="reviews">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Hank, Moo &amp; Beans was professional, on time, and the workmanship was outstanding. Couldn't ask for a better experience."</p>
+        <div class="author">— Michael T.</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"The best in Tulsa. James Hank and his team exceeded every expectation. Fair pricing and top-quality work."</p>
+        <div class="author">— Jennifer B.</div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Fast response, great communication, and the results speak for themselves. Highly recommend."</p>
+        <div class="author">— Robert K.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ -->
+<section id="faq" class="section-gray">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Questions?</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-question">Do you offer free estimates?</div>
+        <div class="faq-answer"><p>Yes — every consultation starts with a no-obligation, free estimate. Just call or use our contact form.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are you licensed and insured?</div>
+        <div class="faq-answer"><p>Absolutely. We carry full licensing, general liability, and workers comp insurance for every job.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What areas do you serve?</div>
+        <div class="faq-answer"><p>We proudly serve the greater Tulsa metro and surrounding communities throughout Oklahoma.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How quickly can you start my project?</div>
+        <div class="faq-answer"><p>Most projects can start within one to two weeks of the initial estimate, depending on scope and season.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you offer warranties?</div>
+        <div class="faq-answer"><p>Yes — all of our work is backed by a written workmanship warranty plus any applicable manufacturer warranties.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CTA BANNER -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>When It Matters Most, We&#39;re In Your Corner</h2>
+    <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">Tulsa&#39;s Trusted Legal Team</p>
+    <a href="#contact" class="btn-primary">Free Consultation</a>
+  </div>
+</section>
+
+<!-- 10. CONTACT + MAP -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Contact Hank, Moo &amp; Beans</h2>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="tel" placeholder="Phone" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="How can we help?"></textarea>
+        <button type="submit" class="btn-primary">Free Consultation</button>
+      </form>
+      <div class="contact-map">
+        <iframe src="https://maps.google.com/maps?q=Tulsa,OK&output=embed" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. FOOTER COLUMNS -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Hank, Moo &amp; Beans</h4>
+        <p>Tulsa&#39;s Trusted Legal Team</p>
+        <p style="margin-top: 1rem;">401 S Boston Ave, Suite 1200<br>Tulsa, OK 74103</p>
+        <p style="margin-top: 0.5rem;"><a href="tel:(918) 555-0155">(918) 555-0155</a></p>
+        <p><a href="mailto:info@hankmoobeans.com">info@hankmoobeans.com</a></p>
+        <div class="domain-note">Domain <strong>hankmoobeans.com</strong> is pending setup.</div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li>Personal Injury</li>
+          <li>Business Law</li>
+          <li>Estate Planning</li>
+        </ul>
+      </div>
+    </div>
+    <!-- 12. FOOTER BOTTOM -->
+    <div class="footer-bottom">
+      <span>Powered by BVM Digital · Bruno AI · © 2026</span>
+      <span class="seo-badge seo-pending">⚪ Not Submitted</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.faq-question').forEach(function(q) {
+  q.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>
