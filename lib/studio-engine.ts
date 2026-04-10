@@ -35,12 +35,14 @@ export function resolveImagesAtIntake(
   businessType: string,
   rawDescription?: string,
   serviceCount = 3,
+  audienceHints?: string[],
 ): SitePayload {
   // 1. Classify the business
   const classification = classifyBusiness(businessType, rawDescription)
 
   // 2. Select hero image deterministically from curated pool
-  const heroResult = selectHeroImage(classification.subtype, siteId)
+  //    Pass audienceHints so kids/children bias applies
+  const heroResult = selectHeroImage(classification.subtype, siteId, audienceHints)
 
   if (heroResult.escalate) {
     // Pool was empty for this subtype AND parent — this is an error condition.

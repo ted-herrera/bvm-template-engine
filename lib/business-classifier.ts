@@ -16,7 +16,7 @@ const SUBTYPE_RULES: Array<[RegExp, string, string]> = [
   [/\b(japanese food)\b/i, 'restaurant', 'japanese_food'],
   [/\b(baked goods)\b/i, 'restaurant', 'bakery'],
   [/\b(coffee shop)\b/i, 'restaurant', 'coffee_cafe'],
-  [/\b(take[- ]?out|carry[- ]?out|carryout|to[- ]?go)\b/i, 'restaurant', 'food_takeout'],
+  // Specific food subtypes BEFORE generic takeout so "pizza and takeout" → pizza
   [/\b(pizza|pizzeria)\b/i, 'restaurant', 'pizza'],
   [/\b(burger|burgers)\b/i, 'restaurant', 'burger'],
   [/\b(taco|tacos)\b/i, 'restaurant', 'taco_mexican'],
@@ -26,6 +26,8 @@ const SUBTYPE_RULES: Array<[RegExp, string, string]> = [
   [/\b(bakery|pastry)\b/i, 'restaurant', 'bakery'],
   [/\b(coffee|cafe|espresso)\b/i, 'restaurant', 'coffee_cafe'],
   [/\b(bar|pub|brewery|taproom)\b/i, 'restaurant', 'bar_brewery'],
+  // Generic takeout/restaurant AFTER all specific food subtypes
+  [/\b(take[- ]?out|carry[- ]?out|carryout|to[- ]?go)\b/i, 'restaurant', 'food_takeout'],
   [/\b(restaurant|dining|eatery)\b/i, 'restaurant', 'restaurant'],
 
   // ── Martial arts (before gym so "karate" doesn't fall to fitness) ──

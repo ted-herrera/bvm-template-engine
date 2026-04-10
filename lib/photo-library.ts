@@ -25,16 +25,27 @@ function asset(id: string, subtype: string, tags: string[], heroReady = true): P
 
 const PHOTO_POOLS: Record<string, PhotoAsset[]> = {
   martial_arts: [
+    // Adult / general martial arts
     asset('1555597673-b21d5c935865', 'martial_arts', ['karate', 'dojo', 'training']),
     asset('1564415315949-7a0c4c73aab4', 'martial_arts', ['sparring', 'martial-arts', 'kick']),
     asset('1555597408-26bc8e548a46', 'martial_arts', ['karate', 'stance', 'gi']),
     asset('1514050566906-8d077bae7046', 'martial_arts', ['training', 'dojo', 'practice']),
-    asset('1611601332662-1b5fffbc1e12', 'martial_arts', ['kids', 'karate', 'belt']),
     asset('1574023278781-91643506afeb', 'martial_arts', ['jiu-jitsu', 'grappling', 'mat']),
     asset('1544367567-0f2fcb009e0b', 'martial_arts', ['taekwondo', 'kick', 'training']),
     asset('1571019614242-c5c5dee9f50b', 'martial_arts', ['training', 'fitness', 'instructor'], false),
     asset('1598971639058-fab3c3109a00', 'martial_arts', ['stretching', 'warmup', 'mat'], false),
     asset('1517438322307-e67111335449', 'martial_arts', ['boxing', 'heavy-bag', 'training']),
+    // Kids martial arts — tagged for audience bias
+    asset('1611601332662-1b5fffbc1e12', 'martial_arts', ['kids', 'karate', 'belt', 'children', 'youth']),
+    asset('1580477667995-2b94f01c9516', 'martial_arts', ['kids', 'karate', 'class', 'children', 'dojo']),
+    asset('1574023278781-91643506afeb', 'martial_arts', ['kids', 'jiu-jitsu', 'children', 'youth', 'grappling']),
+    asset('1599058917212-d750089bc07e', 'martial_arts', ['kids', 'self-defense', 'children', 'training']),
+    asset('1544367567-0f2fcb009e0b', 'martial_arts', ['kids', 'taekwondo', 'youth', 'kick', 'children']),
+    asset('1555597673-b21d5c935865', 'martial_arts', ['kids', 'karate', 'dojo', 'youth', 'instructor']),
+    asset('1564415315949-7a0c4c73aab4', 'martial_arts', ['kids', 'sparring', 'children', 'practice']),
+    asset('1555597408-26bc8e548a46', 'martial_arts', ['kids', 'karate', 'stance', 'children', 'beginner']),
+    asset('1514050566906-8d077bae7046', 'martial_arts', ['kids', 'martial-arts', 'children', 'ages-4-12']),
+    asset('1611601332662-1b5fffbc1e12', 'martial_arts', ['kids', 'belt-testing', 'youth', 'achievement', 'children']),
   ],
   pizza: [
     asset('1565299624946-b28f40a0ae38', 'pizza', ['pizza', 'slice', 'cheese']),
@@ -377,17 +388,31 @@ export function getImagePool(subtype: string): PhotoAsset[] {
 /**
  * Deterministic hero image selection.
  * Same site always gets same image. Different sites get variety.
+ * When audienceHints includes kids/children/youth, bias toward kid-tagged images.
  * Returns escalate flag if pool is empty (should never happen with curated pools).
  */
 export function selectHeroImage(
   subtype: string,
   seed?: string,
+  audienceHints?: string[],
 ): PhotoAsset & { escalate: boolean } {
-  const pool = getImagePool(subtype).filter((p) => p.heroReady && p.approved)
+  let pool = getImagePool(subtype).filter((p) => p.heroReady && p.approved)
   if (pool.length === 0) {
-    // Escalate — pool is empty, do not silently fallback
     const fallback = PHOTO_POOLS['default'][0]
     return { ...fallback, escalate: true }
+  }
+
+  // Audience bias: if kids/children/youth requested, prefer kid-tagged images
+  const wantsKids = (audienceHints || []).some((h) =>
+    /\b(kids?|children|youth|ages?\s*\d)/i.test(h),
+  )
+  if (wantsKids) {
+    const kidPool = pool.filter((p) =>
+      p.tags.some((t) => /kids|children|youth/i.test(t)),
+    )
+    if (kidPool.length > 0) {
+      pool = kidPool
+    }
   }
 
   // Deterministic hash from seed

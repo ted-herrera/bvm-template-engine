@@ -182,25 +182,45 @@ export function preflightCheck(input: PostflightInput): {
 } {
   const issues: string[] = []
 
-  // Check hero image tags don't belong to a different food category
-  const foodSubtypes = ['pizza', 'burger', 'taco_mexican', 'bbq', 'japanese_food', 'sandwich_deli', 'bakery', 'coffee_cafe', 'bar_brewery']
+  const heroTagsLower = input.heroImage.tags.map((t) => t.toLowerCase())
+  const foodSubtypes = ['pizza', 'burger', 'taco_mexican', 'bbq', 'japanese_food', 'sandwich_deli', 'bakery', 'coffee_cafe', 'bar_brewery', 'food_takeout', 'restaurant']
+  const foodTags = ['pizza', 'burger', 'taco', 'bbq', 'sushi', 'ramen', 'sandwich', 'bakery', 'coffee', 'food', 'restaurant', 'dining']
+  const nonFoodSubtypes = ['dental', 'chiropractic', 'medical_clinic', 'salon_barber', 'spa_wellness', 'roofing', 'plumbing', 'hvac', 'landscaping', 'cleaning', 'auto_repair', 'real_estate', 'law', 'accounting', 'insurance', 'tutoring', 'childcare', 'pet_services', 'gym_fitness', 'yoga_pilates', 'martial_arts', 'dance_studio', 'photography']
+
+  // Non-food business with food hero tags = hard fail
+  if (nonFoodSubtypes.includes(input.subtype)) {
+    for (const tag of heroTagsLower) {
+      if (foodTags.includes(tag)) {
+        issues.push(`Hero image tag "${tag}" is food-related but business subtype is "${input.subtype}"`)
+      }
+    }
+  }
+
+  // Food business with wrong food subtype tags
   if (foodSubtypes.includes(input.subtype)) {
     const otherFoodTags = foodSubtypes
       .filter((f) => f !== input.subtype)
       .flatMap((f) => f.split('_'))
-    const heroTagsLower = input.heroImage.tags.map((t) => t.toLowerCase())
     for (const tag of heroTagsLower) {
-      if (otherFoodTags.includes(tag)) {
+      if (otherFoodTags.includes(tag) && !['food', 'restaurant', 'dining'].includes(tag)) {
         issues.push(`Hero image tag "${tag}" belongs to a different food category than "${input.subtype}"`)
       }
     }
   }
 
   // Check service labels aren't from a wildly different industry
-  if (input.subtype === 'roofing') {
+  const industryMismatch: Record<string, RegExp> = {
+    roofing: /pizza|sushi|karate|dental|salon|yoga/i,
+    dental: /roofing|pizza|karate|landscaping|plumbing/i,
+    landscaping: /dental|pizza|karate|salon|legal/i,
+    law: /pizza|roofing|dental|karate|landscaping/i,
+    pizza: /dental|roofing|karate|landscaping|legal/i,
+  }
+  const mismatchPattern = industryMismatch[input.subtype]
+  if (mismatchPattern) {
     for (const label of input.serviceLabels) {
-      if (/pizza|sushi|karate|dental|salon/i.test(label)) {
-        issues.push(`Service label "${label}" does not belong on a roofing site`)
+      if (mismatchPattern.test(label)) {
+        issues.push(`Service label "${label}" does not belong on a ${input.subtype} site`)
       }
     }
   }
