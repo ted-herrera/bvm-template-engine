@@ -3,37 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{businessName}} — {{tagline}}</title>
-<meta name="description" content="{{businessName}} in {{city}}, {{state}}. {{tagline}}. Call {{phone}}.">
+<title>Tulsa Green Landscaping — Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</title>
+<meta name="description" content="Tulsa Green Landscaping in Tulsa, OK. Tulsa&#39;s Trusted Lawn &amp; Landscape Experts. Call (918) 555-0142.">
 
 <!-- Open Graph -->
-<meta property="og:title" content="{{businessName}} — {{tagline}}">
-<meta property="og:description" content="{{tagline}} — serving {{city}}, {{state}}. Call {{phone}}.">
-<meta property="og:image" content="{{heroPhotoUrl}}">
+<meta property="og:title" content="Tulsa Green Landscaping — Tulsa&#39;s Trusted Lawn &amp; Landscape Experts">
+<meta property="og:description" content="Tulsa&#39;s Trusted Lawn &amp; Landscape Experts — serving Tulsa, OK. Call (918) 555-0142.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://{{domain}}">
+<meta property="og:url" content="https://tulsagreenlandscaping.com">
 
 <!-- LocalBusiness JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "{{businessName}}",
-  "image": "{{heroPhotoUrl}}",
-  "telephone": "{{phone}}",
-  "email": "{{email}}",
+  "name": "Tulsa Green Landscaping",
+  "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600",
+  "telephone": "(918) 555-0142",
+  "email": "marcus@tulsagreenlandscaping.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "{{address}}",
-    "addressLocality": "{{city}}",
-    "addressRegion": "{{state}}",
-    "postalCode": "{{zip}}"
+    "streetAddress": "4512 S Peoria Ave",
+    "addressLocality": "Tulsa",
+    "addressRegion": "OK",
+    "postalCode": "74105"
   },
-  "url": "https://{{domain}}",
-  "description": "{{tagline}}",
+  "url": "https://tulsagreenlandscaping.com",
+  "description": "Tulsa&#39;s Trusted Lawn &amp; Landscape Experts",
   "founder": {
     "@type": "Person",
-    "name": "{{ownerName}}"
+    "name": "Marcus Webb"
   }
 }
 </script>
@@ -42,9 +42,9 @@
 
 <style>
 :root {
-  --primary: {{primaryColor}};
-  --secondary: {{secondaryColor}};
-  --accent: {{accentColor}};
+  --primary: #2d5a27;
+  --secondary: #5a814d;
+  --accent: #f5f0e8;
   --dark: #1a1a1a;
   --light: #f2f2f4;
 }
@@ -141,7 +141,7 @@ section { padding: 5rem 0; }
 /* ========== 3. HERO ========== */
 .hero {
   position: relative; min-height: 100vh;
-  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{heroPhotoUrl}}');
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600');
   background-size: cover; background-position: center;
   background-attachment: fixed;
   display: flex; align-items: center;
@@ -374,7 +374,7 @@ section { padding: 5rem 0; }
 <!-- 1. STICKY NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <div class="nav-logo">{{businessName}}</div>
+    <div class="nav-logo">Tulsa Green Landscaping</div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -386,7 +386,7 @@ section { padding: 5rem 0; }
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta-wrap">
-      <a href="tel:{{phone}}" class="nav-cta">{{phone}}</a>
+      <a href="tel:(918) 555-0142" class="nav-cta">(918) 555-0142</a>
     </div>
   </div>
 </nav>
@@ -394,7 +394,7 @@ section { padding: 5rem 0; }
 <!-- 2. TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span>{{businessName}}</span><span>&middot;</span><span>{{city}}, {{state}}</span><span>&middot;</span><span>{{services[0].name}}</span><span>&middot;</span><span>{{services[1].name}}</span><span>&middot;</span><span>{{services[2].name}}</span><span>&middot;</span><span>{{tagline}}</span><span>&middot;</span><span>{{businessName}}</span><span>&middot;</span><span>{{city}}, {{state}}</span><span>&middot;</span><span>{{services[0].name}}</span><span>&middot;</span><span>{{services[1].name}}</span><span>&middot;</span><span>{{services[2].name}}</span><span>&middot;</span><span>{{tagline}}</span><span>&middot;</span><span>{{businessName}}</span><span>&middot;</span><span>{{city}}, {{state}}</span><span>&middot;</span><span>{{services[0].name}}</span><span>&middot;</span><span>{{services[1].name}}</span><span>&middot;</span><span>{{services[2].name}}</span><span>&middot;</span><span>{{tagline}}</span><span>&middot;</span>
+    <span>Tulsa Green Landscaping</span><span>&middot;</span><span>Tulsa, OK</span><span>&middot;</span><span>Lawn Maintenance</span><span>&middot;</span><span>Landscape Design</span><span>&middot;</span><span>Irrigation Systems</span><span>&middot;</span><span>Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</span><span>&middot;</span><span>Tulsa Green Landscaping</span><span>&middot;</span><span>Tulsa, OK</span><span>&middot;</span><span>Lawn Maintenance</span><span>&middot;</span><span>Landscape Design</span><span>&middot;</span><span>Irrigation Systems</span><span>&middot;</span><span>Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</span><span>&middot;</span><span>Tulsa Green Landscaping</span><span>&middot;</span><span>Tulsa, OK</span><span>&middot;</span><span>Lawn Maintenance</span><span>&middot;</span><span>Landscape Design</span><span>&middot;</span><span>Irrigation Systems</span><span>&middot;</span><span>Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</span><span>&middot;</span>
   </div>
 </div>
 
@@ -402,9 +402,9 @@ section { padding: 5rem 0; }
 <section class="hero" id="hero">
   <div class="hero-grid">
     <div class="hero-content">
-      <h1>{{heroHeadline}}</h1>
-      <p>{{tagline}}</p>
-      <a href="#contact" class="btn-primary">{{cta}}</a>
+      <h1>Transform Your Outdoors into a Year-Round Oasis</h1>
+      <p>Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</p>
+      <a href="#contact" class="btn-primary">Get a Free Estimate</a>
     </div>
     <div class="hero-form">
       <h3>Request A Quote</h3>
@@ -414,9 +414,9 @@ section { padding: 5rem 0; }
         <input type="email" placeholder="Email Address" required>
         <select required>
           <option value="" disabled selected>Select a Service</option>
-          <option value="{{services[0].name}}">{{services[0].name}}</option>
-          <option value="{{services[1].name}}">{{services[1].name}}</option>
-          <option value="{{services[2].name}}">{{services[2].name}}</option>
+          <option value="Lawn Maintenance">Lawn Maintenance</option>
+          <option value="Landscape Design">Landscape Design</option>
+          <option value="Irrigation Systems">Irrigation Systems</option>
         </select>
         <button type="submit" class="btn-primary">Submit Request</button>
       </form>
@@ -438,14 +438,14 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="about-grid">
       <div>
-        <div class="about-number">{{yearsInBusiness}}</div>
-        <div class="about-caption">Years Serving {{city}}</div>
+        <div class="about-number">12</div>
+        <div class="about-caption">Years Serving Tulsa</div>
         <div class="eyebrow" style="margin-top: 1.5rem;">OUTDOOR ESCAPES</div>
       </div>
       <div class="about-text">
-        <h2>About {{businessName}}</h2>
-        <p>{{aboutText}}</p>
-        <p class="about-signature">— {{ownerName}}</p>
+        <h2>About Tulsa Green Landscaping</h2>
+        <p>Tulsa Green Landscaping has been beautifying Tulsa yards for over 12 years. Founded by Marcus Webb, we bring professional expertise and genuine care to every project.</p>
+        <p class="about-signature">— Marcus Webb</p>
       </div>
     </div>
   </div>
@@ -455,7 +455,7 @@ section { padding: 5rem 0; }
 <section class="section-light">
   <div class="container">
     <div class="section-header">
-      <div class="eyebrow">THE {{businessName}} DIFFERENCE</div>
+      <div class="eyebrow">THE Tulsa Green Landscaping DIFFERENCE</div>
       <h2>Why Choose Us</h2>
     </div>
     <div class="features">
@@ -491,19 +491,19 @@ section { padding: 5rem 0; }
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[0].photoUrl}}')"></div>
-        <div class="name-bar"><h3>{{services[0].name}}</h3></div>
-        <div class="body"><p>{{services[0].description}}</p></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800')"></div>
+        <div class="name-bar"><h3>Lawn Maintenance</h3></div>
+        <div class="body"><p>Weekly mowing, edging, and cleanup for a yard that always looks its best.</p></div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[1].photoUrl}}')"></div>
-        <div class="name-bar"><h3>{{services[1].name}}</h3></div>
-        <div class="body"><p>{{services[1].description}}</p></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800')"></div>
+        <div class="name-bar"><h3>Landscape Design</h3></div>
+        <div class="body"><p>Custom designs that transform your outdoor space.</p></div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[2].photoUrl}}')"></div>
-        <div class="name-bar"><h3>{{services[2].name}}</h3></div>
-        <div class="body"><p>{{services[2].description}}</p></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?w=800')"></div>
+        <div class="name-bar"><h3>Irrigation Systems</h3></div>
+        <div class="body"><p>Smart watering systems that save water and money.</p></div>
       </div>
     </div>
   </div>
@@ -519,17 +519,17 @@ section { padding: 5rem 0; }
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"Absolutely top-notch work. They transformed our property and exceeded every expectation we had."</p>
-        <div class="author">— Happy Customer, {{city}}</div>
+        <div class="author">— Happy Customer, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"Professional, reliable, and the results speak for themselves. Could not be happier with the service."</p>
-        <div class="author">— Happy Customer, {{city}}</div>
+        <div class="author">— Happy Customer, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"From start to finish, a wonderful experience. Fair pricing and quality craftsmanship throughout."</p>
-        <div class="author">— Happy Customer, {{city}}</div>
+        <div class="author">— Happy Customer, Tulsa</div>
       </div>
     </div>
   </div>
@@ -544,24 +544,24 @@ section { padding: 5rem 0; }
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-question">{{faqs[0].question}}</div>
-        <div class="faq-answer"><p>{{faqs[0].answer}}</p></div>
+        <div class="faq-question">Do you offer free estimates?</div>
+        <div class="faq-answer"><p>Yes — always free, no obligation.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[1].question}}</div>
-        <div class="faq-answer"><p>{{faqs[1].answer}}</p></div>
+        <div class="faq-question">Are you licensed and insured?</div>
+        <div class="faq-answer"><p>Fully licensed and insured in Oklahoma.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[2].question}}</div>
-        <div class="faq-answer"><p>{{faqs[2].answer}}</p></div>
+        <div class="faq-question">What areas do you serve?</div>
+        <div class="faq-answer"><p>All of Tulsa County and surrounding areas.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[3].question}}</div>
-        <div class="faq-answer"><p>{{faqs[3].answer}}</p></div>
+        <div class="faq-question">Do you work year-round?</div>
+        <div class="faq-answer"><p>Yes, including leaf removal and winter prep.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[4].question}}</div>
-        <div class="faq-answer"><p>{{faqs[4].answer}}</p></div>
+        <div class="faq-question">How do I get started?</div>
+        <div class="faq-answer"><p>Call us or fill out the form above.</p></div>
       </div>
     </div>
   </div>
@@ -571,11 +571,15 @@ section { padding: 5rem 0; }
 <section class="pricing-section">
   <div class="container">
     <div class="pricing-card">
-      <span class="pricing-badge">{{pricingLabel}}</span>
-      <div class="pricing-amount">${{monthlyPrice}}/mo</div>
-      <div class="pricing-setup">${{setupFee}} setup fee</div>
+      <span class="pricing-badge">Good · Local Site</span>
+      <div class="pricing-amount">$249/mo</div>
+      <div class="pricing-setup">$399 setup fee</div>
       <ul class="pricing-features">
-        {{pricingFeaturesHtml}}
+        <li>5-Page Professional Site</li>
+<li>Mobile Responsive</li>
+<li>Google Business Setup</li>
+<li>Contact Form + Map</li>
+<li>BVM Hosting Included</li>
       </ul>
       <button class="btn-pricing">Get Started</button>
     </div>
@@ -585,9 +589,9 @@ section { padding: 5rem 0; }
 <!-- 10. CTA BANNER -->
 <section class="cta-banner">
   <div class="container">
-    <h2>{{heroHeadline}}</h2>
-    <p>{{cta}}</p>
-    <a href="tel:{{phone}}" class="phone-display">{{phone}}</a>
+    <h2>Transform Your Outdoors into a Year-Round Oasis</h2>
+    <p>Get a Free Estimate</p>
+    <a href="tel:(918) 555-0142" class="phone-display">(918) 555-0142</a>
   </div>
 </section>
 
@@ -607,12 +611,12 @@ section { padding: 5rem 0; }
       </div>
       <div class="contact-map-wrap">
         <div class="contact-map">
-          <iframe src="https://maps.google.com/maps?q={{city}},{{state}}&output=embed" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://maps.google.com/maps?q=Tulsa,OK&output=embed" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="contact-info">
-          <p>{{address}}<br>{{city}}, {{state}} {{zip}}</p>
-          <p><a href="tel:{{phone}}">{{phone}}</a></p>
-          <p><a href="mailto:{{email}}">{{email}}</a></p>
+          <p>4512 S Peoria Ave<br>Tulsa, OK 74105</p>
+          <p><a href="tel:(918) 555-0142">(918) 555-0142</a></p>
+          <p><a href="mailto:marcus@tulsagreenlandscaping.com">marcus@tulsagreenlandscaping.com</a></p>
         </div>
       </div>
     </div>
@@ -624,9 +628,9 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>{{businessName}}</h4>
-        <p>{{tagline}}</p>
-        <p style="margin-top: 1rem;"><a href="tel:{{phone}}">{{phone}}</a></p>
+        <h4>Tulsa Green Landscaping</h4>
+        <p>Tulsa&#39;s Trusted Lawn &amp; Landscape Experts</p>
+        <p style="margin-top: 1rem;"><a href="tel:(918) 555-0142">(918) 555-0142</a></p>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -641,20 +645,20 @@ section { padding: 5rem 0; }
       <div>
         <h4>Services</h4>
         <ul>
-          <li>{{services[0].name}}</li>
-          <li>{{services[1].name}}</li>
-          <li>{{services[2].name}}</li>
+          <li>Lawn Maintenance</li>
+          <li>Landscape Design</li>
+          <li>Irrigation Systems</li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
-        <p>{{address}}<br>{{city}}, {{state}} {{zip}}</p>
-        <p style="margin-top: 0.5rem;"><a href="tel:{{phone}}">{{phone}}</a></p>
-        <p><a href="mailto:{{email}}">{{email}}</a></p>
+        <p>4512 S Peoria Ave<br>Tulsa, OK 74105</p>
+        <p style="margin-top: 0.5rem;"><a href="tel:(918) 555-0142">(918) 555-0142</a></p>
+        <p><a href="mailto:marcus@tulsagreenlandscaping.com">marcus@tulsagreenlandscaping.com</a></p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>{{seoStatusBadge}}</div>
+      <div><span class="seo-badge seo-pending">SEO Pending</span></div>
       <div>Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</div>
     </div>
   </div>

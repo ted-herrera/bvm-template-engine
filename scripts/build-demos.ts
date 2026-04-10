@@ -9,30 +9,7 @@ function loadTemplate(name: 'local' | 'community' | 'premier'): string {
   return fs.readFileSync(path.join(ROOT, 'templates', name, 'index.html'), 'utf-8')
 }
 
-const STANDARD_FAQS = [
-  {
-    question: 'Do you offer free estimates?',
-    answer: 'Yes — every consultation starts with a no-obligation, free estimate. Just call or use our contact form.',
-  },
-  {
-    question: 'Are you licensed and insured?',
-    answer: 'Absolutely. We carry full licensing, general liability, and workers comp insurance for every job.',
-  },
-  {
-    question: 'What areas do you serve?',
-    answer: 'We proudly serve the greater Tulsa metro and surrounding communities throughout Oklahoma.',
-  },
-  {
-    question: 'How quickly can you start my project?',
-    answer: 'Most projects can start within one to two weeks of the initial estimate, depending on scope and season.',
-  },
-  {
-    question: 'Do you offer warranties?',
-    answer: 'Yes — all of our work is backed by a written workmanship warranty plus any applicable manufacturer warranties.',
-  },
-]
-
-// ==================== 1. Tulsa Green Landscaping ====================
+// ==================== 1. Tulsa Green Landscaping (Local) ====================
 const tulsaGreen: BVMSiteVariables = {
   businessName: 'Tulsa Green Landscaping',
   ownerName: 'Marcus Webb',
@@ -42,203 +19,228 @@ const tulsaGreen: BVMSiteVariables = {
   city: 'Tulsa',
   state: 'OK',
   zip: '74105',
-  yearsInBusiness: '18',
+  domain: 'tulsagreenlandscaping.com',
+  yearsInBusiness: '12',
   tagline: "Tulsa's Trusted Lawn & Landscape Experts",
-  heroHeadline: 'Beautiful Yards Start Here',
+  heroHeadline: 'Transform Your Outdoors into a Year-Round Oasis',
   cta: 'Get a Free Estimate',
+  aboutText:
+    'Tulsa Green Landscaping has been beautifying Tulsa yards for over 12 years. Founded by Marcus Webb, we bring professional expertise and genuine care to every project.',
+  template: 'local',
   primaryColor: '#2d5a27',
-  secondaryColor: '#f5f0e8',
-  accentColor: '#e8a72a',
+  secondaryColor: '#5a814d',
+  accentColor: '#f5f0e8',
   services: [
     {
       name: 'Lawn Maintenance',
-      description: 'Weekly mowing, edging, trimming, and seasonal fertilization to keep your lawn lush and healthy year-round.',
-      photoUrl: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800',
-    },
-    {
-      name: 'Landscape Design',
-      description: 'Custom landscape design and installation — from native plant gardens to full yard transformations.',
+      description:
+        'Weekly mowing, edging, and cleanup for a yard that always looks its best.',
       photoUrl: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800',
     },
     {
-      name: 'Seasonal Cleanup',
-      description: 'Spring and fall cleanup, leaf removal, mulching, and pruning to prepare your yard for every season.',
-      photoUrl: 'https://images.unsplash.com/photo-1599598425947-5bdd4d4b1a7d?w=800',
+      name: 'Landscape Design',
+      description: 'Custom designs that transform your outdoor space.',
+      photoUrl: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800',
+    },
+    {
+      name: 'Irrigation Systems',
+      description: 'Smart watering systems that save water and money.',
+      photoUrl: 'https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?w=800',
     },
   ],
-  aboutText:
-    "Founded in 2007, Tulsa Green Landscaping has been transforming yards across Tulsa for nearly two decades. Owner Marcus Webb started with one truck and a vision: treat every yard like it was his own. Today, we're proud to be a trusted neighbor to hundreds of Tulsa families — and we still believe the best marketing is a job well done.",
-  faqs: STANDARD_FAQS,
+  faqs: [
+    { question: 'Do you offer free estimates?', answer: 'Yes — always free, no obligation.' },
+    {
+      question: 'Are you licensed and insured?',
+      answer: 'Fully licensed and insured in Oklahoma.',
+    },
+    { question: 'What areas do you serve?', answer: 'All of Tulsa County and surrounding areas.' },
+    {
+      question: 'Do you work year-round?',
+      answer: 'Yes, including leaf removal and winter prep.',
+    },
+    { question: 'How do I get started?', answer: 'Call us or fill out the form above.' },
+  ],
   heroPhotoUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600',
-  template: 'local',
+  pricingTier: 'good',
+  monthlyPrice: '249',
+  setupFee: '399',
+  pricingLabel: 'Good · Local Site',
+  pricingFeatures: [
+    '5-Page Professional Site',
+    'Mobile Responsive',
+    'Google Business Setup',
+    'Contact Form + Map',
+    'BVM Hosting Included',
+  ],
+  seoStatus: 'not-submitted',
   businessType: 'Landscaping',
-  domain: 'tulsagreenlandscaping.com',
-  domainStatus: 'confirmed',
-  seoStatus: 'indexed',
 }
 
-// ==================== 2. Herrera Roofing ====================
-const herreraRoofing: BVMSiteVariables = {
-  businessName: 'Herrera Roofing',
-  ownerName: 'Carlos Herrera',
-  phone: '(918) 555-0198',
-  email: 'carlos@herreraroofing.com',
-  address: '6821 E 41st St',
-  city: 'Tulsa',
-  state: 'OK',
-  zip: '74145',
-  yearsInBusiness: '22',
-  tagline: "Tulsa's Most Trusted Roofing Company",
-  heroHeadline: 'Your Roof. Our Reputation.',
-  cta: 'Get a Free Inspection',
-  primaryColor: '#1B2A4A',
-  secondaryColor: '#c0392b',
-  accentColor: '#f8f9fa',
+// ==================== 2. Hurst Roofers (Community) ====================
+const hurstRoofing: BVMSiteVariables = {
+  businessName: 'Hurst Roofers',
+  ownerName: 'Bob Hurst',
+  phone: '(609) 555-0187',
+  email: 'bob@hurstroofers.com',
+  address: '120 High St',
+  city: 'Burlington',
+  state: 'NJ',
+  zip: '08016',
+  domain: 'hurstroofers.com',
+  yearsInBusiness: '18',
+  tagline: "Burlington County's Most Trusted Roofers",
+  heroHeadline: 'Reliable Roofing You Can Trust in Burlington County',
+  cta: 'Get a Free Estimate',
+  aboutText:
+    'Owned and operated by Bob Hurst, Hurst Roofers proudly serves homeowners and property owners across Burlington County with dependable roofing solutions and exceptional workmanship.',
+  template: 'community',
+  primaryColor: '#111111',
+  secondaryColor: '#b51217',
+  accentColor: '#ffffff',
   services: [
     {
-      name: 'Roof Replacement',
-      description: 'Full roof replacements using premium shingles and materials, backed by manufacturer and workmanship warranties.',
-      photoUrl: 'https://images.unsplash.com/photo-1632939890255-a2f3ee12a95f?w=800',
+      name: 'Residential Roofing',
+      description:
+        'Complete residential roof installation, repair and replacement with quality materials.',
+      photoUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
+    },
+    {
+      name: 'Commercial Roofing',
+      description:
+        'Durable commercial roofing solutions for businesses across Burlington County.',
+      photoUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800',
     },
     {
       name: 'Storm Damage Repair',
-      description: 'Fast, expert storm damage response — from hail and wind repairs to full insurance claim assistance.',
-      photoUrl: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800',
-    },
-    {
-      name: 'Roof Inspection',
-      description: 'Comprehensive roof inspections with detailed reports — perfect for homebuyers, sellers, or proactive maintenance.',
-      photoUrl: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800',
+      description:
+        'Fast emergency response for storm damage — we protect your home when it matters most.',
+      photoUrl: 'https://images.unsplash.com/photo-1558618047-f4e90fca3ed9?w=800',
     },
   ],
-  aboutText:
-    "For over two decades, Herrera Roofing has been protecting Tulsa homes from the worst that Oklahoma weather can throw at them. Founded by Carlos Herrera in 2003, we've built our reputation one roof at a time — with honest estimates, meticulous workmanship, and the kind of follow-through that turns customers into lifelong clients. When you call Herrera, you get the owner, not a salesperson.",
-  faqs: STANDARD_FAQS,
-  heroPhotoUrl: 'https://images.unsplash.com/photo-1632207691143-643e2a9a9361?w=1600',
-  template: 'community',
-  businessType: 'Roofing',
-  domain: 'herreraroofing.com',
-  domainStatus: 'confirmed',
-  seoStatus: 'submitted',
-}
-
-// ==================== 3. Mooshu Sushi ====================
-const mooshuSushi: BVMSiteVariables = {
-  businessName: 'Mooshu Sushi',
-  ownerName: 'Kenji Tanaka',
-  phone: '(918) 555-0177',
-  email: 'hello@mooshusushi.com',
-  address: '1315 E 15th St',
-  city: 'Tulsa',
-  state: 'OK',
-  zip: '74120',
-  yearsInBusiness: '12',
-  tagline: "Tulsa's Most Elevated Sushi Experience",
-  heroHeadline: 'Where Every Roll Tells a Story',
-  cta: 'Reserve a Table',
-  primaryColor: '#0a0a0a',
-  secondaryColor: '#C9A84C',
-  accentColor: '#1a1a1a',
-  services: [
-    {
-      name: 'Omakase Experience',
-      description: "A curated, chef's-choice journey through the finest seasonal fish, paired with our most refined preparations.",
-      photoUrl: 'https://images.unsplash.com/photo-1553621042-f6e147245754?w=800',
-    },
-    {
-      name: 'Premium Rolls',
-      description: 'Signature rolls crafted from the day\'s freshest catch — bold, balanced, and unforgettable.',
-      photoUrl: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800',
-    },
-    {
-      name: 'Private Dining',
-      description: 'Intimate private rooms for special occasions, corporate gatherings, and curated tasting menus.',
-      photoUrl: 'https://images.unsplash.com/photo-1526318896980-cf78c088247c?w=800',
-    },
-  ],
-  aboutText:
-    'Mooshu Sushi is the vision of Chef Kenji Tanaka — a Tokyo-trained master who brought his craft to Tulsa in 2014. Every piece of fish is flown in daily. Every rice grain is prepared with reverence. Every plate is an expression of decades of discipline. We don\'t just serve sushi — we offer an experience rooted in tradition, elevated by modern artistry.',
   faqs: [
+    { question: 'Do you offer free estimates?', answer: 'Yes, always free with no obligation.' },
     {
-      question: 'Do you take reservations?',
-      answer: 'Yes — we strongly recommend reservations, especially for our omakase experience and weekend dining.',
+      question: 'How long does a roof replacement take?',
+      answer: 'Most residential roofs are completed in 1-2 days.',
     },
     {
-      question: 'What is omakase?',
-      answer: 'Omakase means "I\'ll leave it up to you." Chef Kenji selects each course based on the best fish of the day.',
+      question: 'Are you licensed and insured in NJ?',
+      answer: 'Fully licensed and insured in New Jersey.',
     },
     {
-      question: 'Do you offer private dining?',
-      answer: 'Yes. Our private dining rooms accommodate parties of 6 to 20 guests with curated tasting menus.',
+      question: 'Do you work with insurance claims?',
+      answer: 'Yes, we work directly with all major insurance companies.',
     },
     {
-      question: 'Is there a dress code?',
-      answer: 'We suggest smart casual. No shorts or athletic wear in the main dining room.',
-    },
-    {
-      question: 'Do you offer vegetarian options?',
-      answer: 'Absolutely. Chef Kenji has crafted an elegant vegetarian tasting menu upon request.',
+      question: 'What areas do you serve?',
+      answer:
+        'Burlington, Riverside, Medford, Delran, Florence, Moorestown, and Willingboro.',
     },
   ],
-  heroPhotoUrl: 'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1600',
-  template: 'premier',
-  businessType: 'Restaurant',
-  domain: 'mooshusushi.com',
-  domainStatus: 'confirmed',
-  seoStatus: 'indexed',
+  heroPhotoUrl: 'https://images.unsplash.com/photo-1632823471565-1ecdf5c6da3a?w=1600',
+  pricingTier: 'better',
+  monthlyPrice: '349',
+  setupFee: '499',
+  pricingLabel: 'Better · Community Site',
+  pricingFeatures: [
+    '7-Page Professional Site',
+    'Mobile Responsive',
+    'Google Business + SEO Submission',
+    'Lead Capture Form',
+    'Monthly Performance Report',
+    'BVM Hosting Included',
+  ],
+  seoStatus: 'submitted',
+  businessType: 'Roofing',
 }
 
-// ==================== 4. Hank, Moo & Beans (Legal) ====================
-const hankMooBeans: BVMSiteVariables = {
-  businessName: 'Hank, Moo & Beans',
-  ownerName: 'James Hank',
-  phone: '(918) 555-0155',
-  email: 'info@hankmoobeans.com',
-  address: '401 S Boston Ave, Suite 1200',
-  city: 'Tulsa',
-  state: 'OK',
-  zip: '74103',
-  yearsInBusiness: '28',
-  tagline: "Tulsa's Trusted Legal Team",
-  heroHeadline: "When It Matters Most, We're In Your Corner",
-  cta: 'Free Consultation',
-  primaryColor: '#1B2A4A',
-  secondaryColor: '#c0392b',
-  accentColor: '#f8f9fa',
+// ==================== 3. Best Captain Law (Premier) ====================
+const captainLaw: BVMSiteVariables = {
+  businessName: 'Best Captain Law',
+  ownerName: 'Steve Rogers',
+  phone: '(718) 555-0234',
+  email: 'info@bestcaptainlaw.com',
+  address: '350 Jay St, Suite 400',
+  city: 'Brooklyn',
+  state: 'NY',
+  zip: '11201',
+  domain: 'bestcaptainlaw.com',
+  yearsInBusiness: '15',
+  tagline: 'Dedicated Legal Service You Can Rely On',
+  heroHeadline: 'Trusted Legal Guidance in Brooklyn, New York',
+  cta: 'Schedule a Consultation',
+  aboutText:
+    'At Best Captain Law, Attorney Steve Rogers delivers dependable results-driven legal representation to clients across Brooklyn and surrounding areas. With 15 years of experience, we are committed to clear communication and outcomes that protect your rights.',
+  template: 'premier',
+  primaryColor: '#1e3a8a',
+  secondaryColor: '#c62828',
+  accentColor: '#c62828',
   services: [
     {
-      name: 'Personal Injury',
-      description: 'Aggressive representation for car accidents, workplace injuries, and wrongful death cases. No fee unless we win.',
-      photoUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800',
-    },
-    {
-      name: 'Business Law',
-      description: 'From entity formation to complex commercial litigation, we guide Tulsa businesses at every stage of growth.',
+      name: 'Family Law',
+      description:
+        'Compassionate and strategic family law services for divorce, custody, and more.',
       photoUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800',
     },
     {
-      name: 'Estate Planning',
-      description: 'Wills, trusts, probate, and estate administration handled with care and clarity for families and their legacies.',
+      name: 'Corporate Law',
+      description:
+        'Comprehensive legal solutions for businesses — contracts, compliance, and disputes.',
+      photoUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800',
+    },
+    {
+      name: 'Criminal Law',
+      description:
+        'Aggressive criminal defense to protect your rights and your future.',
       photoUrl: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800',
     },
   ],
-  aboutText:
-    "Hank, Moo & Beans has been serving Tulsa families and businesses since 1998. Founded by James Hank, our firm is built on a simple principle: treat every client the way you'd want your own family to be treated. Whether you're facing a personal injury, planning your estate, or navigating a business dispute, we bring deep experience, straight talk, and fierce advocacy to every case we take.",
-  faqs: STANDARD_FAQS,
+  faqs: [
+    {
+      question: 'Do you offer free consultations?',
+      answer: 'Yes, we offer a free 30-minute initial consultation.',
+    },
+    {
+      question: 'What areas of law do you practice?',
+      answer: 'Family law, corporate law, and criminal defense.',
+    },
+    {
+      question: 'How long have you been practicing?',
+      answer: 'Attorney Steve Rogers has 15+ years of experience in Brooklyn courts.',
+    },
+    {
+      question: 'Do you handle cases outside Brooklyn?',
+      answer: 'Yes, we serve all five boroughs of New York City.',
+    },
+    {
+      question: 'How do I get started?',
+      answer: 'Call us or fill out the contact form to schedule your free consultation.',
+    },
+  ],
   heroPhotoUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600',
-  template: 'community',
+  pricingTier: 'best',
+  monthlyPrice: '499',
+  setupFee: '699',
+  pricingLabel: 'Best · Premier Site',
+  pricingFeatures: [
+    '10-Page Premium Site',
+    'Mobile Responsive',
+    'Full SEO Package + Schema Markup',
+    'Advanced Lead System',
+    'Monthly Analytics Dashboard',
+    'Priority Support',
+    'BVM Hosting Included',
+  ],
+  seoStatus: 'indexed',
   businessType: 'Legal',
-  domain: 'hankmoobeans.com',
-  domainStatus: 'pending',
-  seoStatus: 'not-submitted',
 }
 
 // ==================== BUILD ====================
 const demos = [
-  { file: 'tulsa-green-landscaping.html', vars: tulsaGreen },
-  { file: 'herrera-roofing.html', vars: herreraRoofing },
-  { file: 'mooshu-sushi.html', vars: mooshuSushi },
-  { file: 'hank-moo-beans.html', vars: hankMooBeans },
+  { file: 'tulsa-green.html', vars: tulsaGreen },
+  { file: 'hurst-roofing.html', vars: hurstRoofing },
+  { file: 'captain-law.html', vars: captainLaw },
 ]
 
 const demosDir = path.join(ROOT, 'demos')

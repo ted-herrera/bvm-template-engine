@@ -14,23 +14,13 @@ const EMPTY_FAQ = {
 function seoBadge(status: BVMSiteVariables['seoStatus']): string {
   switch (status) {
     case 'indexed':
-      return '<span class="seo-badge seo-indexed">🟢 Google Indexed</span>'
+      return '<span class="seo-badge seo-indexed">Google Indexed</span>'
     case 'submitted':
-      return '<span class="seo-badge seo-submitted">🟡 Google Submitted</span>'
+      return '<span class="seo-badge seo-submitted">Google Submitted</span>'
     case 'not-submitted':
     default:
-      return '<span class="seo-badge seo-pending">⚪ Not Submitted</span>'
+      return '<span class="seo-badge seo-pending">SEO Pending</span>'
   }
-}
-
-function domainNote(vars: BVMSiteVariables): string {
-  if (vars.domainStatus === 'pending') {
-    return `<div class="domain-note">Domain <strong>${escapeHtml(vars.domain)}</strong> is pending setup.</div>`
-  }
-  if (vars.domainStatus === 'needs-help') {
-    return `<div class="domain-note">Domain <strong>${escapeHtml(vars.domain)}</strong> needs assistance — contact support.</div>`
-  }
-  return ''
 }
 
 function escapeHtml(value: string): string {
@@ -63,6 +53,11 @@ function replaceAll(haystack: string, needle: string, value: string): string {
   return haystack.split(needle).join(value)
 }
 
+function buildPricingFeatures(features: string[]): string {
+  if (!features || features.length === 0) return ''
+  return features.map((f) => `<li>${escapeHtml(f)}</li>`).join('\n')
+}
+
 export function injectVariables(template: string, vars: BVMSiteVariables): string {
   let html = template
 
@@ -82,11 +77,13 @@ export function injectVariables(template: string, vars: BVMSiteVariables): strin
     html = replaceAll(html, `{{faqs[${i}].answer}}`, escapeHtml(faqs[i].answer))
   }
 
-  // SEO badge + domain note (before generic key loop so they don't get stripped)
+  // SEO badge
   html = replaceAll(html, '{{seoStatusBadge}}', seoBadge(vars.seoStatus))
-  html = replaceAll(html, '{{domainStatusNote}}', domainNote(vars))
 
-  // Simple scalar keys
+  // Pricing features as <li> items
+  html = replaceAll(html, '{{pricingFeaturesHtml}}', buildPricingFeatures(vars.pricingFeatures || []))
+
+  // Simple scalar keys — order matters: longer keys before shorter
   const scalarKeys: Array<keyof BVMSiteVariables> = [
     'businessName',
     'ownerName',
@@ -108,20 +105,24 @@ export function injectVariables(template: string, vars: BVMSiteVariables): strin
     'template',
     'businessType',
     'domain',
-    'domainStatus',
     'seoStatus',
+    'pricingTier',
+    'monthlyPrice',
+    'setupFee',
+    'pricingLabel',
   ]
+
+  const SKIP_ESCAPE = new Set([
+    'primaryColor',
+    'secondaryColor',
+    'accentColor',
+    'heroPhotoUrl',
+    'domain',
+  ])
 
   for (const key of scalarKeys) {
     const raw = (vars[key] as unknown as string) ?? ''
-    // Colors + URLs should not be HTML-escaped (they go into style/src attributes)
-    const skipEscape =
-      key === 'primaryColor' ||
-      key === 'secondaryColor' ||
-      key === 'accentColor' ||
-      key === 'heroPhotoUrl' ||
-      key === 'domain'
-    const value = skipEscape ? String(raw) : escapeHtml(String(raw))
+    const value = SKIP_ESCAPE.has(key) ? String(raw) : escapeHtml(String(raw))
     html = replaceAll(html, `{{${key}}}`, value)
   }
 

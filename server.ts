@@ -23,9 +23,9 @@ function loadTemplate(name: TemplateName): string {
 }
 
 const DEMO_MAP: Record<TemplateName, string> = {
-  local: 'tulsa-green-landscaping.html',
-  community: 'herrera-roofing.html',
-  premier: 'mooshu-sushi.html',
+  local: 'tulsa-green.html',
+  community: 'hurst-roofing.html',
+  premier: 'captain-law.html',
 }
 
 // ---------- /health ----------

@@ -3,32 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{businessName}} — {{tagline}}</title>
-<meta name="description" content="{{businessName}} in {{city}}, {{state}}. {{tagline}}. Call {{phone}}.">
+<title>Hurst Roofers — Burlington County&#39;s Most Trusted Roofers</title>
+<meta name="description" content="Hurst Roofers in Burlington, NJ. Burlington County&#39;s Most Trusted Roofers. Call (609) 555-0187.">
 
-<meta property="og:title" content="{{businessName}} — {{tagline}}">
-<meta property="og:description" content="{{tagline}} — serving {{city}}, {{state}}. Call {{phone}}.">
-<meta property="og:image" content="{{heroPhotoUrl}}">
+<meta property="og:title" content="Hurst Roofers — Burlington County&#39;s Most Trusted Roofers">
+<meta property="og:description" content="Burlington County&#39;s Most Trusted Roofers — serving Burlington, NJ. Call (609) 555-0187.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1632823471565-1ecdf5c6da3a?w=1600">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://{{domain}}">
+<meta property="og:url" content="https://hurstroofers.com">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "{{businessName}}",
-  "image": "{{heroPhotoUrl}}",
-  "telephone": "{{phone}}",
-  "email": "{{email}}",
+  "name": "Hurst Roofers",
+  "image": "https://images.unsplash.com/photo-1632823471565-1ecdf5c6da3a?w=1600",
+  "telephone": "(609) 555-0187",
+  "email": "bob@hurstroofers.com",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "{{address}}",
-    "addressLocality": "{{city}}",
-    "addressRegion": "{{state}}",
-    "postalCode": "{{zip}}"
+    "streetAddress": "120 High St",
+    "addressLocality": "Burlington",
+    "addressRegion": "NJ",
+    "postalCode": "08016"
   },
-  "url": "https://{{domain}}",
-  "description": "{{tagline}}"
+  "url": "https://hurstroofers.com",
+  "description": "Burlington County&#39;s Most Trusted Roofers"
 }
 </script>
 
@@ -36,9 +36,9 @@
 
 <style>
 :root {
-  --primary: {{primaryColor}};
-  --secondary: {{secondaryColor}};
-  --accent: {{accentColor}};
+  --primary: #111111;
+  --secondary: #b51217;
+  --accent: #ffffff;
   --light: #f5f5f5;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -127,7 +127,7 @@ img { max-width: 100%; display: block; }
 /* ========== 3. HERO ========== */
 .hero {
   position: relative; min-height: 100vh;
-  background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('{{heroPhotoUrl}}');
+  background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1632823471565-1ecdf5c6da3a?w=1600');
   background-size: cover; background-position: center;
   background-attachment: fixed;
   display: flex; align-items: center;
@@ -427,7 +427,7 @@ section { padding: 5rem 0; }
 <!-- 1. NAV -->
 <nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <div class="nav-logo"><a href="#">{{businessName}}</a></div>
+    <div class="nav-logo"><a href="#">Hurst Roofers</a></div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -437,7 +437,7 @@ section { padding: 5rem 0; }
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="tel:{{phone}}" class="nav-cta">{{phone}}</a></li>
+      <li><a href="tel:(609) 555-0187" class="nav-cta">(609) 555-0187</a></li>
     </ul>
   </div>
 </nav>
@@ -445,15 +445,15 @@ section { padding: 5rem 0; }
 <!-- 2. TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving {{city}}</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving {{city}}</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving {{city}}</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span>
+    <span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Burlington</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Burlington</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Burlington</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span>
   </div>
 </div>
 
 <!-- 3. HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <h1>{{heroHeadline}}</h1>
-    <p class="hero-subtitle">{{tagline}}</p>
+    <h1>Reliable Roofing You Can Trust in Burlington County</h1>
+    <p class="hero-subtitle">Burlington County&#39;s Most Trusted Roofers</p>
     <div class="trust-signals">
       <span>Licensed</span>
       <span>&middot;</span>
@@ -461,7 +461,7 @@ section { padding: 5rem 0; }
       <span>&middot;</span>
       <span>Free Estimates</span>
       <span>&middot;</span>
-      <span>{{yearsInBusiness}}+ Years</span>
+      <span>18+ Years</span>
     </div>
     <div class="hero-estimate-form">
       <h4>Get a Free Estimate</h4>
@@ -471,16 +471,16 @@ section { padding: 5rem 0; }
           <input type="tel" placeholder="Phone Number" required>
           <select required>
             <option value="" disabled selected>Select Service</option>
-            <option value="{{services[0].name}}">{{services[0].name}}</option>
-            <option value="{{services[1].name}}">{{services[1].name}}</option>
-            <option value="{{services[2].name}}">{{services[2].name}}</option>
+            <option value="Residential Roofing">Residential Roofing</option>
+            <option value="Commercial Roofing">Commercial Roofing</option>
+            <option value="Storm Damage Repair">Storm Damage Repair</option>
           </select>
         </div>
         <button type="submit" class="btn-secondary">Submit Request</button>
       </form>
     </div>
     <div class="hero-ctas">
-      <a href="tel:{{phone}}" class="btn-call">Call Us</a>
+      <a href="tel:(609) 555-0187" class="btn-call">Call Us</a>
       <a href="#contact" class="btn-outline">Contact Us</a>
     </div>
   </div>
@@ -492,13 +492,13 @@ section { padding: 5rem 0; }
     <div class="about-grid">
       <div>
         <h4 class="about-eyebrow">Local Experts</h4>
-        <h2>About {{businessName}}</h2>
-        <p class="about-text">{{aboutText}}</p>
+        <h2>About Hurst Roofers</h2>
+        <p class="about-text">Owned and operated by Bob Hurst, Hurst Roofers proudly serves homeowners and property owners across Burlington County with dependable roofing solutions and exceptional workmanship.</p>
         <a href="#contact" class="btn-primary-solid">About Us</a>
       </div>
       <div class="about-stat">
-        <div class="number">{{yearsInBusiness}}</div>
-        <div class="label">Years Serving {{city}}</div>
+        <div class="number">18</div>
+        <div class="label">Years Serving Burlington</div>
       </div>
     </div>
   </div>
@@ -509,7 +509,7 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="why-header">
       <h2>Why Homeowners Choose Us</h2>
-      <p>Trusted Professionals in {{city}}</p>
+      <p>Trusted Professionals in Burlington</p>
     </div>
     <div class="features">
       <div class="feature-card">
@@ -544,24 +544,24 @@ section { padding: 5rem 0; }
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[0].photoUrl}}')"></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800')"></div>
         <div class="body">
-          <h3>{{services[0].name}}</h3>
-          <p>{{services[0].description}}</p>
+          <h3>Residential Roofing</h3>
+          <p>Complete residential roof installation, repair and replacement with quality materials.</p>
         </div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[1].photoUrl}}')"></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800')"></div>
         <div class="body">
-          <h3>{{services[1].name}}</h3>
-          <p>{{services[1].description}}</p>
+          <h3>Commercial Roofing</h3>
+          <p>Durable commercial roofing solutions for businesses across Burlington County.</p>
         </div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('{{services[2].photoUrl}}')"></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1558618047-f4e90fca3ed9?w=800')"></div>
         <div class="body">
-          <h3>{{services[2].name}}</h3>
-          <p>{{services[2].description}}</p>
+          <h3>Storm Damage Repair</h3>
+          <p>Fast emergency response for storm damage — we protect your home when it matters most.</p>
         </div>
       </div>
     </div>
@@ -578,17 +578,17 @@ section { padding: 5rem 0; }
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"Absolutely outstanding work. Professional from start to finish, and the results exceeded our expectations. Highly recommend to anyone in the area."</p>
-        <div class="author">&mdash; Satisfied Customer, {{city}}</div>
+        <div class="author">&mdash; Satisfied Customer, Burlington</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"Fair pricing, great communication, and top-quality craftsmanship. They showed up on time and left the job site spotless. Will definitely use again."</p>
-        <div class="author">&mdash; Satisfied Customer, {{city}}</div>
+        <div class="author">&mdash; Satisfied Customer, Burlington</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>"From the initial estimate to the final walkthrough, every step was handled with care. Truly a team of professionals who stand behind their work."</p>
-        <div class="author">&mdash; Satisfied Customer, {{city}}</div>
+        <div class="author">&mdash; Satisfied Customer, Burlington</div>
       </div>
     </div>
   </div>
@@ -602,24 +602,24 @@ section { padding: 5rem 0; }
     </div>
     <div class="faq">
       <div class="faq-item">
-        <div class="faq-question">{{faqs[0].question}}</div>
-        <div class="faq-answer"><p>{{faqs[0].answer}}</p></div>
+        <div class="faq-question">Do you offer free estimates?</div>
+        <div class="faq-answer"><p>Yes, always free with no obligation.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[1].question}}</div>
-        <div class="faq-answer"><p>{{faqs[1].answer}}</p></div>
+        <div class="faq-question">How long does a roof replacement take?</div>
+        <div class="faq-answer"><p>Most residential roofs are completed in 1-2 days.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[2].question}}</div>
-        <div class="faq-answer"><p>{{faqs[2].answer}}</p></div>
+        <div class="faq-question">Are you licensed and insured in NJ?</div>
+        <div class="faq-answer"><p>Fully licensed and insured in New Jersey.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[3].question}}</div>
-        <div class="faq-answer"><p>{{faqs[3].answer}}</p></div>
+        <div class="faq-question">Do you work with insurance claims?</div>
+        <div class="faq-answer"><p>Yes, we work directly with all major insurance companies.</p></div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">{{faqs[4].question}}</div>
-        <div class="faq-answer"><p>{{faqs[4].answer}}</p></div>
+        <div class="faq-question">What areas do you serve?</div>
+        <div class="faq-answer"><p>Burlington, Riverside, Medford, Delran, Florence, Moorestown, and Willingboro.</p></div>
       </div>
     </div>
   </div>
@@ -630,11 +630,16 @@ section { padding: 5rem 0; }
   <div class="container pricing-section">
     <h2 style="color:#fff; margin-bottom:2.5rem;">Pricing</h2>
     <div class="pricing-card">
-      <div class="pricing-badge">{{pricingLabel}}</div>
-      <div class="pricing-amount">${{monthlyPrice}}/mo</div>
-      <div class="pricing-setup">${{setupFee}} setup fee</div>
+      <div class="pricing-badge">Better · Community Site</div>
+      <div class="pricing-amount">$349/mo</div>
+      <div class="pricing-setup">$499 setup fee</div>
       <ul class="pricing-features">
-        {{pricingFeaturesHtml}}
+        <li>7-Page Professional Site</li>
+<li>Mobile Responsive</li>
+<li>Google Business + SEO Submission</li>
+<li>Lead Capture Form</li>
+<li>Monthly Performance Report</li>
+<li>BVM Hosting Included</li>
       </ul>
       <a href="#contact" class="btn-pricing">Get Started</a>
     </div>
@@ -645,7 +650,7 @@ section { padding: 5rem 0; }
 <section class="cta-banner">
   <div class="container">
     <h2>Call Us Today</h2>
-    <div class="phone-display"><a href="tel:{{phone}}">{{phone}}</a></div>
+    <div class="phone-display"><a href="tel:(609) 555-0187">(609) 555-0187</a></div>
     <a href="#contact" class="btn-secondary">Contact Us</a>
   </div>
 </section>
@@ -654,7 +659,7 @@ section { padding: 5rem 0; }
 <section id="contact">
   <div class="container">
     <div style="text-align:center; margin-bottom:3rem;">
-      <h2>Contact {{businessName}}</h2>
+      <h2>Contact Hurst Roofers</h2>
     </div>
     <div class="contact-grid">
       <form class="contact-form">
@@ -665,13 +670,13 @@ section { padding: 5rem 0; }
         <button type="submit" class="btn-secondary">Send Message</button>
       </form>
       <div class="contact-map">
-        <iframe src="https://maps.google.com/maps?q={{address}},{{city}},{{state}}+{{zip}}&output=embed" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://maps.google.com/maps?q=120 High St,Burlington,NJ+08016&output=embed" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
     <div class="contact-info">
-      <p><strong>{{businessName}}</strong></p>
-      <p>{{address}}, {{city}}, {{state}} {{zip}}</p>
-      <p><a href="tel:{{phone}}">{{phone}}</a> &middot; <a href="mailto:{{email}}">{{email}}</a></p>
+      <p><strong>Hurst Roofers</strong></p>
+      <p>120 High St, Burlington, NJ 08016</p>
+      <p><a href="tel:(609) 555-0187">(609) 555-0187</a> &middot; <a href="mailto:bob@hurstroofers.com">bob@hurstroofers.com</a></p>
     </div>
   </div>
 </section>
@@ -681,9 +686,9 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>{{businessName}}</h4>
-        <p>{{tagline}}</p>
-        <p style="margin-top:1rem;">{{address}}<br>{{city}}, {{state}} {{zip}}</p>
+        <h4>Hurst Roofers</h4>
+        <p>Burlington County&#39;s Most Trusted Roofers</p>
+        <p style="margin-top:1rem;">120 High St<br>Burlington, NJ 08016</p>
       </div>
       <div>
         <h4>Quick Links</h4>
@@ -698,22 +703,22 @@ section { padding: 5rem 0; }
       <div>
         <h4>Services</h4>
         <ul>
-          <li>{{services[0].name}}</li>
-          <li>{{services[1].name}}</li>
-          <li>{{services[2].name}}</li>
+          <li>Residential Roofing</li>
+          <li>Commercial Roofing</li>
+          <li>Storm Damage Repair</li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
-          <li><a href="tel:{{phone}}">{{phone}}</a></li>
-          <li><a href="mailto:{{email}}">{{email}}</a></li>
-          <li><a href="https://{{domain}}">{{domain}}</a></li>
+          <li><a href="tel:(609) 555-0187">(609) 555-0187</a></li>
+          <li><a href="mailto:bob@hurstroofers.com">bob@hurstroofers.com</a></li>
+          <li><a href="https://hurstroofers.com">hurstroofers.com</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>{{seoStatusBadge}}</span>
+      <span><span class="seo-badge seo-submitted">Google Submitted</span></span>
       <span>Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</span>
     </div>
   </div>
