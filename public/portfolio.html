@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Built by Bruno — BVM Digital Portfolio</title>
+<meta name="description" content="A collection of websites engineered for local businesses. Built by Bruno. BVM Digital.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:#000;color:#fff}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:#fff;color:#111;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ── Type Scale ── */
+.serif{font-family:'Playfair Display',Georgia,serif}
+.mono{font-family:'DM Mono',monospace}
+.tracked{letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:500;color:#999}
+
+/* ── Layout ── */
+.container{max-width:1280px;margin:0 auto;padding:0 48px}
+@media(max-width:768px){.container{padding:0 24px}}
+
+/* ═══════════════════════════════════════
+   SECTION 1 — HERO
+   ═══════════════════════════════════════ */
+.hero{
+  min-height:92vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;
+  padding:0 48px;
+  position:relative;
+}
+@media(max-width:768px){.hero{padding:0 24px;min-height:80vh}}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,8vw,96px);
+  font-weight:400;
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  margin-bottom:24px;
+}
+.hero p{
+  font-size:clamp(16px,1.8vw,22px);
+  color:#666;
+  font-weight:300;
+  max-width:560px;
+  line-height:1.6;
+}
+.hero-rule{
+  width:60px;height:1px;
+  background:#ddd;
+  margin-top:48px;
+}
+.scroll-indicator{
+  position:absolute;
+  bottom:40px;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:#ccc;font-size:11px;
+  font-family:'DM Mono',monospace;
+  letter-spacing:.1em;
+}
+.scroll-indicator .arrow{
+  width:1px;height:32px;background:#ddd;
+  position:relative;
+}
+.scroll-indicator .arrow::after{
+  content:'';position:absolute;bottom:0;left:-3px;
+  width:7px;height:7px;
+  border-right:1px solid #ccc;border-bottom:1px solid #ccc;
+  transform:rotate(45deg);
+}
+
+/* ═══════════════════════════════════════
+   SECTION 2 — PRODUCTION BUILDS
+   ═══════════════════════════════════════ */
+.section{padding:120px 0}
+@media(max-width:768px){.section{padding:80px 0}}
+.section-label{margin-bottom:48px}
+.section-label p{color:#888;font-size:14px;margin-top:8px;font-weight:300}
+
+.prod-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+@media(max-width:900px){.prod-grid{grid-template-columns:1fr;gap:32px}}
+
+.prod-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  background:#fafafa;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.prod-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 24px 64px rgba(0,0,0,.08);
+}
+.prod-card-img{
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+  display:block;
+  background:#f0f0f0;
+}
+.prod-card-body{padding:28px 32px 32px}
+.prod-card-body h3{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:400;
+  margin-bottom:10px;
+  line-height:1.2;
+}
+.prod-meta{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:16px;flex-wrap:wrap;
+}
+.prod-badge{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:#888;
+  padding:3px 10px;
+  border:1px solid #e0e0e0;
+  border-radius:20px;
+}
+.prod-city{font-size:13px;color:#aaa}
+.prod-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;color:#111;
+  text-decoration:none;
+  font-weight:500;
+  transition:gap .2s;
+}
+.prod-link:hover{gap:10px}
+.prod-link .arrow{transition:transform .2s}
+.engine-badge{
+  position:absolute;top:20px;right:20px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);
+  padding:6px 14px;border-radius:20px;
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;
+  color:#0a9;letter-spacing:.03em;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 3 — CUSTOM & WHISKEY
+   ═══════════════════════════════════════ */
+.section-dark{
+  background:#0a0a0a;
+  color:#e8e4dc;
+  padding:120px 0;
+}
+@media(max-width:768px){.section-dark{padding:80px 0}}
+.section-dark .tracked{color:#666}
+.section-dark .section-label p{color:#777}
+
+.custom-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
+}
+@media(max-width:1000px){.custom-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.custom-grid{grid-template-columns:1fr}}
+
+.custom-card{
+  position:relative;
+  border-radius:4px;
+  overflow:hidden;
+  background:#141414;
+  transition:transform .3s;
+}
+.custom-card:hover{transform:translateY(-4px)}
+.custom-card-img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+  background:#1a1a1a;
+}
+.custom-card-body{padding:24px 28px 28px}
+.custom-card-body h3{
+  font-family:'Playfair Display',serif;
+  font-size:24px;font-weight:400;
+  color:#e8e4dc;
+  margin-bottom:6px;
+}
+.custom-card-body p{
+  font-size:13px;color:#777;font-weight:300;
+  margin-bottom:20px;
+}
+
+/* Frosted lock overlay */
+.lock-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:rgba(10,10,10,.6);
+  backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:16px;
+  opacity:0;
+  transition:opacity .35s;
+}
+.custom-card:hover .lock-overlay{opacity:1}
+.lock-label{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:#999;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.lock-btn{
+  display:inline-block;
+  padding:10px 28px;
+  border:1px solid #e8e4dc;
+  color:#e8e4dc;
+  font-family:'DM Mono',monospace;
+  font-size:12px;font-weight:500;
+  letter-spacing:.06em;
+  text-decoration:none;
+  border-radius:2px;
+  transition:background .2s,color .2s;
+}
+.lock-btn:hover{background:#e8e4dc;color:#0a0a0a}
+
+/* ═══════════════════════════════════════
+   SECTION 4 — FOOTER
+   ═══════════════════════════════════════ */
+.portfolio-footer{
+  padding:40px 0;
+  border-top:1px solid #e8e8e8;
+}
+.portfolio-footer .container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-left{
+  font-size:13px;color:#aaa;font-weight:300;
+}
+.footer-right a{
+  font-size:13px;color:#111;
+  text-decoration:none;font-weight:500;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:gap .2s;
+}
+.footer-right a:hover{gap:10px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <h1 class="serif">Built by Bruno.</h1>
+  <p>A collection of websites engineered for local businesses.</p>
+  <div class="hero-rule"></div>
+  <div class="scroll-indicator">
+    <span>scroll</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRODUCTION BUILDS ═══════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">
+      <div class="tracked mono">Production Builds</div>
+      <p>Engine-generated. Preflight verified. Passed at 100.</p>
+    </div>
+    <div class="prod-grid">
+
+      <!-- Card 1: Champions Karate -->
+      <div class="prod-card">
+        <div class="engine-badge">Score 100 · PASS</div>
+        <img class="prod-card-img"
+             src="https://images.unsplash.com/photo-1541836567455-2d41eb6dd9b4?w=1200&auto=format&fit=crop"
+             alt="Champions Karate Academy — kids martial arts dojo"
+             loading="lazy">
+        <div class="prod-card-body">
+          <h3 class="serif">Champions Karate Academy</h3>
+          <div class="prod-meta">
+            <span class="prod-badge">Martial Arts · Community</span>
+            <span class="prod-city">Tulsa, OK</span>
+          </div>
+          <a href="/scripts/preview-karate.html" target="_blank" class="prod-link">
+            View Site <span class="arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Tony's Pizza -->
+      <div class="prod-card">
+        <div class="engine-badge">Score 100 · PASS</div>
+        <img class="prod-card-img"
+             src="https://images.unsplash.com/photo-1567349077939-101215abd8ec?w=1200&auto=format&fit=crop"
+             alt="Tony's Pizza — New York style pizza"
+             loading="lazy">
+        <div class="prod-card-body">
+          <h3 class="serif">Tony's Pizza</h3>
+          <div class="prod-meta">
+            <span class="prod-badge">Pizza · Community</span>
+            <span class="prod-city">Tulsa, OK</span>
+          </div>
+          <a href="/scripts/preview-pizza.html" target="_blank" class="prod-link">
+            View Site <span class="arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CUSTOM & WHISKEY ═══════════════ -->
+<section class="section-dark">
+  <div class="container">
+    <div class="section-label">
+      <div class="tracked mono">Custom Builds</div>
+      <p>Bespoke. No template. Built around the brand.</p>
+    </div>
+    <div class="custom-grid">
+
+      <!-- Card 1: Winkle & Co. -->
+      <div class="custom-card">
+        <img class="custom-card-img"
+             src="/project/winkle_hero.jpeg"
+             alt="Winkle & Co. — Single malt whiskey"
+             loading="lazy"
+             onerror="this.style.background='#1a1a1a'">
+        <div class="custom-card-body">
+          <h3 class="serif">Winkle &amp; Co.</h3>
+          <p>Single malt whiskey · Premium e-commerce</p>
+        </div>
+        <div class="lock-overlay">
+          <span class="lock-label">Custom Build · Preview Available</span>
+          <a href="mailto:therrera@bestversionmedia.com?subject=Custom%20Build%20Inquiry%20%E2%80%94%20Winkle%20%26%20Co." class="lock-btn">Request Access</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Hank Van Winkle -->
+      <div class="custom-card">
+        <img class="custom-card-img"
+             src="/project/hank_suit.png"
+             alt="Hank Van Winkle — Whiskey & spirits"
+             loading="lazy"
+             onerror="this.style.background='#1a1a1a'">
+        <div class="custom-card-body">
+          <h3 class="serif">Hank Van Winkle</h3>
+          <p>Whiskey &amp; spirits · Editorial luxury</p>
+        </div>
+        <div class="lock-overlay">
+          <span class="lock-label">Custom Build · Preview Available</span>
+          <a href="mailto:therrera@bestversionmedia.com?subject=Custom%20Build%20Inquiry%20%E2%80%94%20Hank%20Van%20Winkle" class="lock-btn">Request Access</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Ted's Hamburgers -->
+      <div class="custom-card">
+        <img class="custom-card-img"
+             src="https://images.unsplash.com/photo-1616420812082-1ff2334daf57?w=800&auto=format&fit=crop"
+             alt="Ted's Hamburgers — Smash burgers"
+             loading="lazy">
+        <div class="custom-card-body">
+          <h3 class="serif">Ted's Hamburgers</h3>
+          <p>Smash burgers · Custom build</p>
+        </div>
+        <div class="lock-overlay">
+          <span class="lock-label">Custom Build · Preview Available</span>
+          <a href="mailto:therrera@bestversionmedia.com?subject=Custom%20Build%20Inquiry%20%E2%80%94%20Ted%27s%20Hamburgers" class="lock-btn">Request Access</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="portfolio-footer">
+  <div class="container">
+    <div class="footer-left">BVM Digital · Built by Bruno</div>
+    <div class="footer-right">
+      <a href="https://bvm-design-center.vercel.app/intake" target="_blank">
+        Start your project <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
