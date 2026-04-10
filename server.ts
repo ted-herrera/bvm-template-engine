@@ -5,6 +5,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { injectVariables } from './engine/inject'
 import { BVMSiteVariables } from './variables/schema'
+import { preflightCheck } from './lib/postflight-validator'
 
 dotenv.config()
 
@@ -84,6 +85,106 @@ app.get('/api/demos/:filename', (req: Request, res: Response) => {
   }
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   return res.send(fs.readFileSync(demoPath, 'utf-8'))
+})
+
+// ---------- POST /api/engine/score ----------
+app.post('/api/engine/score', (req: Request, res: Response) => {
+  try {
+    const { html, businessName, subtype, serviceLabels, headlineText, ctaCopy, trustBadges, heroTags } = req.body
+    if (!html) return res.status(400).json({ error: 'Missing html' })
+
+    const issues: string[] = []
+    const hardFails: string[] = []
+    const warnings: string[] = []
+
+    // 1. Check for unresolved {{tokens}}
+    const tokenRe = /\{\{([^}]+)\}\}/g
+    let tokenMatch: RegExpExecArray | null
+    const lines = html.split('\n')
+    while ((tokenMatch = tokenRe.exec(html)) !== null) {
+      const pos = html.substring(0, tokenMatch.index).split('\n').length
+      hardFails.push(`Unresolved token {{${tokenMatch[1]}}} on line ${pos} — replace with actual value`)
+    }
+
+    // 2. Check for cross-industry service labels
+    const st = (subtype || '').toLowerCase()
+    const industryTerms: Record<string, string[]> = {
+      martial_arts: ['gym membership', 'treadmill', 'weight room', 'cardio', 'spin class'],
+      pizza: ['dental', 'roofing', 'karate', 'salon', 'landscaping'],
+      roofing: ['pizza', 'sushi', 'karate', 'dental', 'salon', 'yoga'],
+      dental: ['pizza', 'roofing', 'karate', 'landscaping', 'plumbing'],
+      landscaping: ['dental', 'pizza', 'karate', 'salon', 'legal'],
+      law: ['pizza', 'roofing', 'dental', 'karate', 'landscaping'],
+      gym_fitness: ['karate belt', 'kata', 'dojo', 'sensei'],
+    }
+    const wrongTerms = industryTerms[st] || []
+    const htmlLower = html.toLowerCase()
+    for (const term of wrongTerms) {
+      const idx = htmlLower.indexOf(term)
+      if (idx !== -1) {
+        const lineNum = html.substring(0, idx).split('\n').length
+        hardFails.push(`Wrong-industry term "${term}" found on line ${lineNum} — remove or replace with a ${st}-appropriate term`)
+      }
+    }
+
+    // 3. Run preflight tag check
+    if (heroTags && heroTags.length > 0) {
+      const pf = preflightCheck({
+        businessName: businessName || '',
+        subtype: st,
+        heroImage: { id: '', tags: heroTags },
+        serviceLabels: serviceLabels || [],
+        headlineText: headlineText || '',
+        ctaCopy: ctaCopy || '',
+        trustBadges: trustBadges || [],
+        renderedHtml: html,
+      })
+      for (const issue of pf.issues) {
+        hardFails.push(issue)
+      }
+    }
+
+    // 4. Score dimensions
+    const hasTokens = (html.match(/\{\{[^}]+\}\}/g) || []).length
+    const categoryScore = hardFails.length === 0 ? 9.6 : Math.max(1.0, 7.0 - hardFails.length * 1.5)
+    const copyScore = hasTokens > 0 ? Math.max(1.0, 6.0 - hasTokens * 0.5) : 9.8
+    const serviceScore = hardFails.some((f) => /wrong-industry|service label/i.test(f)) ? 4.5 : 9.7
+    const ctaScore = 9.5
+    const crossScore = hardFails.length === 0 && hasTokens === 0 ? 9.6 : Math.max(2.0, 7.0 - (hardFails.length + hasTokens) * 0.8)
+
+    const scores = { categoryAlignment: categoryScore, copyAlignment: copyScore, serviceAlignment: serviceScore, ctaAlignment: ctaScore, crossSectionConsistency: crossScore }
+    const allScores = [categoryScore, copyScore, serviceScore, ctaScore, crossScore]
+
+    let decision: string
+    if (hardFails.length >= 2 || allScores.some((s) => s < 3.0)) {
+      decision = 'ESCALATE'
+    } else if (hardFails.length > 0 || allScores.some((s) => s < 7.0)) {
+      decision = 'FAIL'
+    } else if (allScores.some((s) => s < 8.5)) {
+      decision = 'WARN'
+    } else {
+      decision = 'PASS'
+    }
+
+    const overall = allScores.reduce((a, b) => a + b, 0) / allScores.length
+    const score100 = decision === 'PASS' ? 100 : Math.round(overall * 10)
+
+    return res.json({
+      ...scores,
+      hardFails,
+      warnings,
+      decision,
+      score100,
+      notes: hardFails.length > 0
+        ? `${hardFails.length} hard fail(s) detected — fix before shipping`
+        : decision === 'PASS'
+          ? 'All checks passed — site ready for production'
+          : 'Minor issues detected — review warnings',
+    })
+  } catch (err) {
+    console.error('[/api/engine/score] error:', err)
+    return res.status(500).json({ error: 'Engine scoring failed' })
+  }
 })
 
 // ---------- Root ----------

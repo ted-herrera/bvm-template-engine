@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BVM Engine — Dev Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #00bda5;
+  --teal-dark: #00a38d;
+  --orange: #ff7a59;
+  --orange-dark: #e5603f;
+  --red: #e74c3c;
+  --amber: #f5a623;
+  --green: #00bda5;
+  --gray-50: #f5f8fa;
+  --gray-100: #eaf0f6;
+  --gray-200: #dfe3eb;
+  --gray-300: #cbd6e2;
+  --gray-500: #7c98b6;
+  --gray-700: #516f90;
+  --gray-900: #2d3e50;
+  --white: #ffffff;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--gray-50); color: var(--gray-900); font-size: 14px; line-height: 1.5; }
+
+/* ── Layout ── */
+.app { display: grid; grid-template-columns: 56px 1fr; min-height: 100vh; }
+.sidebar { background: var(--gray-900); display: flex; flex-direction: column; align-items: center; padding: 16px 0; gap: 8px; }
+.sidebar a { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray-500); transition: all 0.15s; text-decoration: none; }
+.sidebar a:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+.sidebar a.active { background: rgba(0,189,165,0.15); color: var(--teal); }
+.sidebar svg { width: 20px; height: 20px; }
+
+.main { display: grid; grid-template-columns: 1fr 380px 1fr; gap: 0; }
+
+/* ── Panels ── */
+.panel { padding: 24px; border-right: 1px solid var(--gray-200); overflow-y: auto; max-height: 100vh; }
+.panel:last-child { border-right: none; }
+.panel-header { margin-bottom: 20px; }
+.breadcrumb { font-size: 12px; color: var(--gray-500); margin-bottom: 12px; }
+.breadcrumb a { color: var(--teal); text-decoration: none; }
+.breadcrumb span { margin: 0 6px; }
+
+/* ── Job Card ── */
+.job-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.job-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.badge-subtype { background: #e8f7f5; color: var(--teal); }
+.badge-tier { background: var(--gray-100); color: var(--gray-700); }
+.badge-pass { background: #e8f7f5; color: var(--teal); }
+.badge-warn { background: #fef3e0; color: var(--amber); }
+.badge-fail { background: #fde8e8; color: var(--red); }
+.badge-escalate { background: var(--red); color: var(--white); animation: pulse-badge 1.5s infinite; }
+@keyframes pulse-badge { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+.badge-escalated { background: var(--orange); color: var(--white); }
+.job-meta { display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: var(--gray-500); }
+
+/* ── Textarea ── */
+.html-input-wrap { position: relative; background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; margin-bottom: 12px; }
+.html-input-wrap label { display: block; padding: 10px 14px 0; font-size: 12px; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em; }
+.html-input { width: 100%; min-height: 400px; padding: 10px 14px 30px; border: none; outline: none; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; resize: vertical; background: transparent; color: var(--gray-900); }
+.char-count { position: absolute; bottom: 8px; right: 14px; font-size: 11px; color: var(--gray-500); }
+
+.btn { display: block; width: 100%; padding: 12px; border: none; border-radius: 6px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; text-align: center; }
+.btn-teal { background: var(--teal); color: var(--white); }
+.btn-teal:hover { background: var(--teal-dark); }
+.btn-orange { background: var(--orange); color: var(--white); margin-top: 12px; }
+.btn-orange:hover { background: var(--orange-dark); }
+.btn-disabled { background: var(--gray-300); color: var(--gray-500); cursor: not-allowed; pointer-events: none; }
+
+/* ── Score Panel ── */
+.score-header { text-align: center; margin-bottom: 24px; }
+.score-number { font-size: 64px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.score-label { font-size: 13px; color: var(--gray-500); font-weight: 500; }
+.decision-badge { display: inline-block; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 8px; }
+
+.score-bars { margin-bottom: 24px; }
+.score-bar { margin-bottom: 14px; }
+.score-bar-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; margin-bottom: 4px; }
+.score-bar-track { height: 8px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+
+.issues-section { margin-bottom: 20px; }
+.issues-section h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-700); margin-bottom: 10px; }
+.issue-card { background: var(--white); border: 1px solid var(--gray-200); border-left: 4px solid var(--red); border-radius: 6px; padding: 12px 14px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; }
+.issue-card.warn { border-left-color: var(--amber); }
+.issue-card .issue-title { font-weight: 600; color: var(--gray-900); margin-bottom: 2px; }
+.issue-card .issue-detail { color: var(--gray-500); }
+
+.empty-state { text-align: center; padding: 40px 20px; color: var(--gray-500); }
+.empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.3; }
+
+/* ── Preview ── */
+.preview-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.preview-header h3 { font-size: 14px; font-weight: 600; }
+.view-toggle { display: flex; border: 1px solid var(--gray-200); border-radius: 6px; overflow: hidden; }
+.view-toggle button { padding: 6px 14px; border: none; background: var(--white); font-family: var(--font); font-size: 12px; font-weight: 500; cursor: pointer; color: var(--gray-700); }
+.view-toggle button.active { background: var(--teal); color: var(--white); }
+.preview-frame { background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; overflow: hidden; }
+.preview-frame iframe { width: 100%; height: calc(100vh - 180px); border: none; }
+.preview-frame.mobile iframe { max-width: 375px; margin: 0 auto; display: block; }
+.approved-badge { text-align: center; padding: 10px; margin-top: 12px; }
+
+/* ── Toast ── */
+.toast { position: fixed; bottom: 24px; right: 24px; background: var(--gray-900); color: var(--white); padding: 14px 24px; border-radius: 8px; font-size: 13px; font-weight: 500; box-shadow: 0 8px 30px rgba(0,0,0,0.2); transform: translateY(100px); opacity: 0; transition: all 0.3s ease; z-index: 1000; }
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── Tooltip ── */
+[data-tooltip] { position: relative; }
+[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--gray-900); color: var(--white); padding: 6px 12px; border-radius: 6px; font-size: 11px; white-space: nowrap; z-index: 10; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="/" title="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+    <a href="/demos/tulsa-green.html" title="Build Queue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></a>
+    <a href="/engine.html" class="active" title="Engine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a>
+  </nav>
+
+  <div class="main">
+    <!-- LEFT PANEL — HTML Input -->
+    <div class="panel" id="leftPanel">
+      <div class="panel-header">
+        <div class="breadcrumb"><a href="#">Build Queue</a><span>›</span><a href="#">Champions Karate Academy</a><span>›</span>Engine Review</div>
+        <div class="job-card">
+          <h2 id="jobName">Champions Karate Academy</h2>
+          <div style="display:flex; gap:8px; margin-bottom: 8px;">
+            <span class="badge badge-subtype" id="subtypeBadge">martial_arts</span>
+            <span class="badge badge-tier" id="tierBadge">Community</span>
+          </div>
+          <div class="job-meta">
+            <span>Dev: <strong>dev1</strong></span>
+            <span>Claimed: <strong>Apr 10, 2026</strong></span>
+            <span>Tulsa, OK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="html-input-wrap">
+        <label>Site HTML</label>
+        <textarea class="html-input" id="htmlInput" spellcheck="false"></textarea>
+        <div class="char-count" id="charCount">0 chars</div>
+      </div>
+
+      <button class="btn btn-teal" id="runEngine" onclick="runEngine()">Run Engine</button>
+    </div>
+
+    <!-- CENTER PANEL — Score & Diagnosis -->
+    <div class="panel" id="centerPanel" style="background: var(--white);">
+      <div class="score-header">
+        <div class="score-number" id="scoreNumber" style="color: var(--gray-300);">—</div>
+        <div class="score-label">Engine Score</div>
+        <div class="decision-badge" id="decisionBadge" style="display:none;"></div>
+      </div>
+
+      <div class="score-bars" id="scoreBars">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <p>Paste HTML and click <strong>Run Engine</strong></p>
+        </div>
+      </div>
+
+      <div id="hardFailsSection" style="display:none;">
+        <div class="issues-section">
+          <h3>Hard Fails</h3>
+          <div id="hardFailsList"></div>
+        </div>
+      </div>
+      <div id="warningsSection" style="display:none;">
+        <div class="issues-section">
+          <h3>Warnings</h3>
+          <div id="warningsList"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-orange" id="escalateBtn" style="display:none;" onclick="escalate()">Escalate for Manual Review</button>
+      <button class="btn btn-teal" id="markCompleteBtn" style="display:none; margin-top:12px;" onclick="markComplete()">Mark Complete</button>
+    </div>
+
+    <!-- RIGHT PANEL — Live Preview -->
+    <div class="panel" id="rightPanel">
+      <div class="preview-header">
+        <h3>Live Preview — <span id="previewName">Champions Karate Academy</span></h3>
+        <div class="view-toggle">
+          <button class="active" onclick="setView('desktop', this)">Desktop</button>
+          <button onclick="setView('mobile', this)">Mobile</button>
+        </div>
+      </div>
+      <div class="preview-frame" id="previewFrame">
+        <iframe id="previewIframe" srcdoc="<div style='padding:40px;text-align:center;color:#7c98b6;font-family:Inter,sans-serif;'>Run Engine to see preview</div>"></iframe>
+      </div>
+      <div class="approved-badge" id="approvedBadge" style="display:none;">
+        <span class="badge badge-pass" style="font-size:13px; padding:6px 16px;">Approved by Engine</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Mock karate HTML with 2 intentional errors ──
+const MOCK_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Champions Karate Academy</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Inter', sans-serif; color: #333; background: #fff; }
+.hero { min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1541836567455-2d41eb6dd9b4?w=1600&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; padding: 4rem 2rem; }
+.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+.btn { display:inline-block; background:#c0392b; color:#fff; padding:14px 32px; border-radius:4px; font-weight:600; text-decoration:none; }
+.section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
+.section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.card { background: #f8f9fa; border-radius: 8px; padding: 2rem; text-align: center; }
+.card h3 { margin-bottom: 0.5rem; }
+.footer { background: #111; color: #999; padding: 3rem 2rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div>
+    <h1>Build Confidence. Build Strength. Build Character.</h1>
+    <p>Tulsa's Premier Kids Martial Arts Academy</p>
+    <a href="#contact" class="btn">Book a Free Trial Class</a>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Our Programs</h2>
+  <p style="text-align:center; margin-bottom:2rem;">Training for ages 4 and up — {{trustBadge2}} certified instructors</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Kids Karate (Ages 4-12)</h3>
+      <p>Age-appropriate martial arts training that builds confidence.</p>
+    </div>
+    <div class="card">
+      <h3>Teen & Adult Self Defense</h3>
+      <p>Practical self-defense techniques for all skill levels.</p>
+    </div>
+    <div class="card">
+      <h3>Gym Membership</h3>
+      <p>Full access to our fitness center and group classes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#f8f9fa; max-width:100%; padding:4rem 2rem;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <h2>Why Students Train With Us</h2>
+    <div class="cards">
+      <div class="card"><h3>Expert Instructors</h3><p>Black belt instructors with decades of experience.</p></div>
+      <div class="card"><h3>Safe Environment</h3><p>Structured training with proper supervision.</p></div>
+      <div class="card"><h3>Character Building</h3><p>Discipline, respect, and confidence in every class.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>What Parents Say</h2>
+  <div class="cards">
+    <div class="card"><p>"My kids love it here. They are more confident than ever."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
+    <div class="card"><p>"The instructors are patient, skilled, and genuinely invested."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
+    <div class="card"><p>"Best martial arts school in the area. Great for all ages."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Champions Karate Academy &middot; Tulsa, OK &middot; (918) 555-0311</p>
+  <p style="margin-top:1rem; font-size:12px;">Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</p>
+</footer>
+
+</body>
+</html>`;
+
+// ── State ──
+let lastScore = null;
+
+// ── Init ──
+const htmlInput = document.getElementById('htmlInput');
+htmlInput.value = MOCK_HTML;
+updateCharCount();
+htmlInput.addEventListener('input', updateCharCount);
+
+function updateCharCount() {
+  document.getElementById('charCount').textContent = htmlInput.value.length.toLocaleString() + ' chars';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function setView(mode, btn) {
+  document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const frame = document.getElementById('previewFrame');
+  frame.classList.toggle('mobile', mode === 'mobile');
+}
+
+function scoreColor(val) {
+  if (val >= 8.5) return 'var(--green)';
+  if (val >= 7.0) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+async function runEngine() {
+  const html = htmlInput.value;
+  if (!html.trim()) { showToast('Paste HTML first'); return; }
+
+  const btn = document.getElementById('runEngine');
+  btn.textContent = 'Scoring...';
+  btn.classList.add('btn-disabled');
+
+  try {
+    const res = await fetch('/api/engine/score', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        html,
+        businessName: 'Champions Karate Academy',
+        subtype: 'martial_arts',
+        serviceLabels: ['Kids Karate', 'Teen Self Defense', 'Belt Testing'],
+        headlineText: 'Build Confidence. Build Strength.',
+        ctaCopy: 'Book a Free Trial Class',
+        trustBadges: ['Certified Instructors', 'Kids & Adults', 'Safe Training', 'Discipline & Respect'],
+        heroTags: ['karate', 'kids', 'dojo'],
+      }),
+    });
+    const data = await res.json();
+    lastScore = data;
+    renderScore(data);
+    renderPreview(html);
+  } catch (err) {
+    showToast('Engine error — check console');
+    console.error(err);
+  } finally {
+    btn.textContent = 'Run Engine';
+    btn.classList.remove('btn-disabled');
+  }
+}
+
+function renderScore(data) {
+  // Score number
+  const sn = document.getElementById('scoreNumber');
+  sn.textContent = data.score100;
+  sn.style.color = data.score100 === 100 ? 'var(--green)' : data.score100 >= 70 ? 'var(--amber)' : 'var(--red)';
+
+  // Decision badge
+  const db = document.getElementById('decisionBadge');
+  db.style.display = 'inline-block';
+  db.textContent = data.decision;
+  db.className = 'decision-badge badge-' + data.decision.toLowerCase();
+
+  // Score bars
+  const dims = [
+    ['Category Alignment', data.categoryAlignment],
+    ['Copy Alignment', data.copyAlignment],
+    ['Service Alignment', data.serviceAlignment],
+    ['CTA Alignment', data.ctaAlignment],
+    ['Cross-Section Consistency', data.crossSectionConsistency],
+  ];
+  let barsHtml = '';
+  for (const [label, val] of dims) {
+    const pct = Math.min(100, (val / 10) * 100);
+    barsHtml += '<div class="score-bar"><div class="score-bar-label"><span>' + label + '</span><span>' + val.toFixed(1) + '</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:' + pct + '%;background:' + scoreColor(val) + '"></div></div></div>';
+  }
+  document.getElementById('scoreBars').innerHTML = barsHtml;
+
+  // Hard fails
+  const hfSection = document.getElementById('hardFailsSection');
+  const hfList = document.getElementById('hardFailsList');
+  if (data.hardFails && data.hardFails.length > 0) {
+    hfSection.style.display = 'block';
+    hfList.innerHTML = data.hardFails.map(f => '<div class="issue-card"><div class="issue-title">Hard Fail</div><div class="issue-detail">' + escapeH(f) + '</div></div>').join('');
+  } else {
+    hfSection.style.display = 'none';
+  }
+
+  // Warnings
+  const wSection = document.getElementById('warningsSection');
+  const wList = document.getElementById('warningsList');
+  if (data.warnings && data.warnings.length > 0) {
+    wSection.style.display = 'block';
+    wList.innerHTML = data.warnings.map(w => '<div class="issue-card warn"><div class="issue-title">Warning</div><div class="issue-detail">' + escapeH(w) + '</div></div>').join('');
+  } else {
+    wSection.style.display = 'none';
+  }
+
+  // Escalate button
+  const escBtn = document.getElementById('escalateBtn');
+  escBtn.style.display = (data.decision === 'FAIL' || data.decision === 'ESCALATE') ? 'block' : 'none';
+
+  // Mark Complete button
+  const mcBtn = document.getElementById('markCompleteBtn');
+  mcBtn.style.display = 'block';
+  if (data.score100 === 100) {
+    mcBtn.classList.remove('btn-disabled');
+    mcBtn.removeAttribute('data-tooltip');
+  } else {
+    mcBtn.classList.add('btn-disabled');
+    mcBtn.setAttribute('data-tooltip', 'Resolve all errors to unlock');
+  }
+
+  // Approved badge
+  document.getElementById('approvedBadge').style.display = data.score100 === 100 ? 'block' : 'none';
+}
+
+function renderPreview(html) {
+  document.getElementById('previewIframe').srcdoc = html;
+}
+
+function escapeH(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function escalate() {
+  // Simulate escalation
+  showToast('Escalation sent — lead notified');
+  const badge = document.createElement('span');
+  badge.className = 'badge badge-escalated';
+  badge.textContent = 'ESCALATED';
+  badge.style.marginLeft = '8px';
+  document.querySelector('.job-card h2').appendChild(badge);
+  document.getElementById('escalateBtn').classList.add('btn-disabled');
+  document.getElementById('escalateBtn').textContent = 'Escalation Sent';
+}
+
+function markComplete() {
+  if (!lastScore || lastScore.score100 !== 100) return;
+  showToast('Site marked complete — onboarding, AM, and client notified');
+  const db = document.getElementById('decisionBadge');
+  db.textContent = 'COMPLETE';
+  db.className = 'decision-badge badge-pass';
+  document.getElementById('markCompleteBtn').textContent = 'Completed';
+  document.getElementById('markCompleteBtn').classList.add('btn-disabled');
+}
+</script>
+</body>
+</html>
