@@ -13,6 +13,7 @@ const PORT = Number(process.env.PORT) || 3005
 
 app.use(cors({ origin: '*' }))
 app.use(express.json({ limit: '2mb' }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 const TEMPLATES = ['local', 'community', 'premier'] as const
 type TemplateName = (typeof TEMPLATES)[number]
@@ -61,7 +62,7 @@ app.get('/api/render/:template', (req: Request, res: Response) => {
     return res.status(404).send(`Unknown template: ${templateName}`)
   }
   const demoFile = DEMO_MAP[templateName]
-  const demoPath = path.join(__dirname, 'demos', demoFile)
+  const demoPath = path.join(__dirname, 'public', 'demos', demoFile)
   if (!fs.existsSync(demoPath)) {
     return res
       .status(404)
@@ -77,7 +78,7 @@ app.get('/api/demos/:filename', (req: Request, res: Response) => {
   if (!/^[a-z0-9\-]+\.html$/i.test(filename)) {
     return res.status(400).send('Invalid filename')
   }
-  const demoPath = path.join(__dirname, 'demos', filename)
+  const demoPath = path.join(__dirname, 'public', 'demos', filename)
   if (!fs.existsSync(demoPath)) {
     return res.status(404).send(`Demo not found: ${filename}`)
   }

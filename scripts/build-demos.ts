@@ -243,7 +243,7 @@ const demos = [
   { file: 'captain-law.html', vars: captainLaw },
 ]
 
-const demosDir = path.join(ROOT, 'demos')
+const demosDir = path.join(ROOT, 'public', 'demos')
 if (!fs.existsSync(demosDir)) {
   fs.mkdirSync(demosDir, { recursive: true })
 }
