@@ -73,7 +73,7 @@ export function injectVariables(template: string, vars: BVMSiteVariables): strin
   for (let i = 0; i < 3; i++) {
     html = replaceAll(html, `{{services[${i}].name}}`, escapeHtml(services[i].name))
     html = replaceAll(html, `{{services[${i}].description}}`, escapeHtml(services[i].description))
-    html = replaceAll(html, `{{services[${i}].photoUrl}}`, escapeHtml(services[i].photoUrl))
+    html = replaceAll(html, `{{services[${i}].photoUrl}}`, services[i].photoUrl)
   }
 
   // FAQ slots
@@ -119,7 +119,8 @@ export function injectVariables(template: string, vars: BVMSiteVariables): strin
       key === 'primaryColor' ||
       key === 'secondaryColor' ||
       key === 'accentColor' ||
-      key === 'heroPhotoUrl'
+      key === 'heroPhotoUrl' ||
+      key === 'domain'
     const value = skipEscape ? String(raw) : escapeHtml(String(raw))
     html = replaceAll(html, `{{${key}}}`, value)
   }

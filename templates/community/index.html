@@ -36,11 +36,11 @@
 
 <style>
 :root {
-  --navy: #1B2A4A;
-  --navy-dark: #111c33;
-  --red: #c0392b;
-  --red-dark: #a02d21;
-  --light-gray: #f8f9fa;
+  --navy: {{primaryColor}};
+  --navy-dark: color-mix(in srgb, {{primaryColor}} 65%, black);
+  --red: {{secondaryColor}};
+  --red-dark: color-mix(in srgb, {{secondaryColor}} 75%, black);
+  --light-gray: {{accentColor}};
   --gray-border: #e5e7eb;
   --white: #ffffff;
   --text: #2c3e50;

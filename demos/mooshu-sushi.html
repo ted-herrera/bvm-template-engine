@@ -38,12 +38,12 @@
 :root {
   --black: #0a0a0a;
   --dark: #1a1a1a;
-  --darker: #050505;
+  --darker: color-mix(in srgb, #0a0a0a 50%, black);
   --gold: #C9A84C;
-  --gold-dark: #a88832;
+  --gold-dark: color-mix(in srgb, #C9A84C 75%, black);
   --white: #ffffff;
   --muted: #999999;
-  --border: #2a2a2a;
+  --border: color-mix(in srgb, #1a1a1a 80%, black);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
