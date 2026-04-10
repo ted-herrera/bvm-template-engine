@@ -126,6 +126,59 @@ const PARENT_SUBTYPES: Record<string, string> = {
   retail: 'retail_boutique',
 }
 
+// Default service suggestions per subtype — used when no custom services provided
+const DEFAULT_SERVICES: Record<string, Array<{ name: string; description: string }>> = {
+  martial_arts: [
+    { name: 'Private Lessons', description: 'One-on-one instruction tailored to your skill level and goals.' },
+    { name: 'Group Classes', description: 'Structured group training for all ages and belt levels.' },
+    { name: 'Belt Testing & Promotions', description: 'Official belt testing ceremonies recognizing student progress and achievement.' },
+    { name: 'Self Defense Training', description: 'Practical self-defense techniques for real-world confidence and safety.' },
+    { name: 'After School Program', description: 'Supervised after-school martial arts training with homework time and character development.' },
+  ],
+  pizza: [
+    { name: 'Signature Pizzas', description: 'Hand-tossed pies made with fresh dough, house sauce, and premium toppings.' },
+    { name: 'Calzones & Stromboli', description: 'Stuffed and baked to golden perfection with your choice of fillings.' },
+    { name: 'Delivery & Catering', description: 'Fast delivery and catering packages for parties and events of any size.' },
+  ],
+  roofing: [
+    { name: 'Roof Replacement', description: 'Full roof replacements using premium materials with manufacturer warranties.' },
+    { name: 'Storm Damage Repair', description: 'Fast emergency response for hail, wind, and storm damage repairs.' },
+    { name: 'Roof Inspection', description: 'Comprehensive inspections with detailed reports for homeowners and buyers.' },
+  ],
+  landscaping: [
+    { name: 'Lawn Maintenance', description: 'Weekly mowing, edging, trimming, and seasonal fertilization.' },
+    { name: 'Landscape Design', description: 'Custom landscape design and installation for your outdoor space.' },
+    { name: 'Irrigation Systems', description: 'Smart watering systems that save water and keep your lawn healthy.' },
+  ],
+  law: [
+    { name: 'Legal Consultation', description: 'Free initial consultation to discuss your case and legal options.' },
+    { name: 'Case Representation', description: 'Aggressive representation in court to protect your rights and interests.' },
+    { name: 'Document Preparation', description: 'Professional preparation of contracts, wills, and legal documents.' },
+  ],
+  dental: [
+    { name: 'General Dentistry', description: 'Comprehensive dental care including cleanings, exams, and fillings.' },
+    { name: 'Cosmetic Dentistry', description: 'Whitening, veneers, and smile makeovers for a confident smile.' },
+    { name: 'Emergency Dental Care', description: 'Same-day appointments for dental emergencies and urgent pain relief.' },
+  ],
+  gym_fitness: [
+    { name: 'Personal Training', description: 'One-on-one sessions with certified trainers tailored to your goals.' },
+    { name: 'Group Fitness Classes', description: 'High-energy group workouts including HIIT, strength, and cardio.' },
+    { name: 'Open Gym Access', description: 'Full access to modern equipment, free weights, and cardio machines.' },
+  ],
+}
+
+/**
+ * Get default service suggestions for a subtype.
+ * Returns up to `count` services. Empty array if no defaults exist.
+ */
+export function getDefaultServices(
+  subtype: string,
+  count = 3,
+): Array<{ name: string; description: string }> {
+  const services = DEFAULT_SERVICES[subtype] || DEFAULT_SERVICES['default'] || []
+  return services.slice(0, count)
+}
+
 export function classifyBusiness(
   businessType: string,
   rawDescription?: string,

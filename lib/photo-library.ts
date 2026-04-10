@@ -25,16 +25,14 @@ function asset(id: string, subtype: string, tags: string[], heroReady = true): P
 
 const PHOTO_POOLS: Record<string, PhotoAsset[]> = {
   martial_arts: [
-    // Adult / general martial arts
+    // Adult / general martial arts — no gym crossover IDs
     asset('1555597673-b21d5c935865', 'martial_arts', ['karate', 'dojo', 'training']),
     asset('1564415315949-7a0c4c73aab4', 'martial_arts', ['sparring', 'martial-arts', 'kick']),
     asset('1555597408-26bc8e548a46', 'martial_arts', ['karate', 'stance', 'gi']),
     asset('1514050566906-8d077bae7046', 'martial_arts', ['training', 'dojo', 'practice']),
     asset('1574023278781-91643506afeb', 'martial_arts', ['jiu-jitsu', 'grappling', 'mat']),
     asset('1544367567-0f2fcb009e0b', 'martial_arts', ['taekwondo', 'kick', 'training']),
-    asset('1571019614242-c5c5dee9f50b', 'martial_arts', ['training', 'fitness', 'instructor'], false),
     asset('1598971639058-fab3c3109a00', 'martial_arts', ['stretching', 'warmup', 'mat'], false),
-    asset('1517438322307-e67111335449', 'martial_arts', ['boxing', 'heavy-bag', 'training']),
     // Kids martial arts — tagged for audience bias
     asset('1611601332662-1b5fffbc1e12', 'martial_arts', ['kids', 'karate', 'belt', 'children', 'youth']),
     asset('1580477667995-2b94f01c9516', 'martial_arts', ['kids', 'karate', 'class', 'children', 'dojo']),
