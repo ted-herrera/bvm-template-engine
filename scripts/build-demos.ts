@@ -54,7 +54,7 @@ const tulsaGreen: BVMSiteVariables = {
     { question: 'Do you work year-round?', answer: 'Yes, including leaf removal and winter prep.' },
     { question: 'How do I get started?', answer: 'Call us or fill out the form above.' },
   ],
-  heroPhotoUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600',
+  heroPhotoUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600',
   pricingTier: 'good',
   monthlyPrice: '249',
   setupFee: '399',
