@@ -47,8 +47,8 @@ app.post('/api/render', (req: Request, res: Response) => {
       })
     }
     const template = loadTemplate(variables.template as TemplateName)
-    const html = injectVariables(template, variables)
-    return res.json({ html, template: variables.template, variables })
+    const { html, normalized } = injectVariables(template, variables)
+    return res.json({ html, template: variables.template, variables, normalized })
   } catch (err) {
     console.error('[/api/render] error:', err)
     return res.status(500).json({ error: 'Failed to render template' })

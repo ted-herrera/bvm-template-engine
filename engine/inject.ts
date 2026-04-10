@@ -1,4 +1,5 @@
 import { BVMSiteVariables } from '../variables/schema'
+import { normalize, NormalizedBusiness } from './normalize'
 
 const EMPTY_SERVICE = {
   name: 'Service',
@@ -58,7 +59,30 @@ function buildPricingFeatures(features: string[]): string {
   return features.map((f) => `<li>${escapeHtml(f)}</li>`).join('\n')
 }
 
-export function injectVariables(template: string, vars: BVMSiteVariables): string {
+export function injectVariables(
+  template: string,
+  vars: BVMSiteVariables,
+): { html: string; normalized: NormalizedBusiness } {
+  // Run normalization — auto-fill empty photos
+  const normalized = normalize(
+    vars.businessType,
+    vars.rawBusinessDescription,
+    vars.toneHints,
+    vars.audienceHints,
+  )
+
+  if (!vars.heroPhotoUrl) {
+    vars.heroPhotoUrl = normalized.heroPhotoUrl
+  }
+
+  if (Array.isArray(vars.services)) {
+    vars.services.forEach((svc, i) => {
+      if (svc && !svc.photoUrl) {
+        svc.photoUrl = normalized.servicePhotoUrls[i] || normalized.servicePhotoUrls[0] || ''
+      }
+    })
+  }
+
   let html = template
 
   const services = padServices(vars.services)
@@ -126,5 +150,5 @@ export function injectVariables(template: string, vars: BVMSiteVariables): strin
     html = replaceAll(html, `{{${key}}}`, value)
   }
 
-  return html
+  return { html, normalized }
 }

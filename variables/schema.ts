@@ -27,4 +27,7 @@ export interface BVMSiteVariables {
   pricingFeatures: string[]
   seoStatus: 'not-submitted' | 'submitted' | 'indexed'
   businessType: string
+  rawBusinessDescription?: string
+  toneHints?: string[]
+  audienceHints?: string[]
 }

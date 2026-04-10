@@ -33,8 +33,7 @@ const tulsaGreen: BVMSiteVariables = {
   services: [
     {
       name: 'Lawn Maintenance',
-      description:
-        'Weekly mowing, edging, and cleanup for a yard that always looks its best.',
+      description: 'Weekly mowing, edging, and cleanup for a yard that always looks its best.',
       photoUrl: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800',
     },
     {
@@ -50,15 +49,9 @@ const tulsaGreen: BVMSiteVariables = {
   ],
   faqs: [
     { question: 'Do you offer free estimates?', answer: 'Yes — always free, no obligation.' },
-    {
-      question: 'Are you licensed and insured?',
-      answer: 'Fully licensed and insured in Oklahoma.',
-    },
+    { question: 'Are you licensed and insured?', answer: 'Fully licensed and insured in Oklahoma.' },
     { question: 'What areas do you serve?', answer: 'All of Tulsa County and surrounding areas.' },
-    {
-      question: 'Do you work year-round?',
-      answer: 'Yes, including leaf removal and winter prep.',
-    },
+    { question: 'Do you work year-round?', answer: 'Yes, including leaf removal and winter prep.' },
     { question: 'How do I get started?', answer: 'Call us or fill out the form above.' },
   ],
   heroPhotoUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600',
@@ -75,25 +68,29 @@ const tulsaGreen: BVMSiteVariables = {
   ],
   seoStatus: 'not-submitted',
   businessType: 'Landscaping',
+  rawBusinessDescription:
+    'landscaping and irrigation services for residential and commercial properties in Tulsa Oklahoma',
+  toneHints: ['community'],
+  audienceHints: [],
 }
 
-// ==================== 2. Hurst Roofers (Community) ====================
-const hurstRoofing: BVMSiteVariables = {
-  businessName: 'Hurst Roofers',
-  ownerName: 'Bob Hurst',
-  phone: '(609) 555-0187',
-  email: 'bob@hurstroofers.com',
-  address: '120 High St',
-  city: 'Burlington',
-  state: 'NJ',
-  zip: '08016',
-  domain: 'hurstroofers.com',
+// ==================== 2. Herrera Roofing (Community) ====================
+const herreraRoofing: BVMSiteVariables = {
+  businessName: 'Herrera Roofing',
+  ownerName: 'Ted Herrera',
+  phone: '(918) 555-0187',
+  email: 'ted@herreraroofing.com',
+  address: '6821 E 41st St',
+  city: 'Tulsa',
+  state: 'OK',
+  zip: '74145',
+  domain: 'herreraroofing.com',
   yearsInBusiness: '18',
-  tagline: "Burlington County's Most Trusted Roofers",
-  heroHeadline: 'Reliable Roofing You Can Trust in Burlington County',
+  tagline: "Tulsa's Most Trusted Roofing Company",
+  heroHeadline: 'Reliable Roofing You Can Trust',
   cta: 'Get a Free Estimate',
   aboutText:
-    'Owned and operated by Bob Hurst, Hurst Roofers proudly serves homeowners and property owners across Burlington County with dependable roofing solutions and exceptional workmanship.',
+    'Owned and operated by Ted Herrera, Herrera Roofing proudly serves homeowners and property owners across Tulsa with dependable roofing solutions and exceptional workmanship.',
   template: 'community',
   primaryColor: '#111111',
   secondaryColor: '#b51217',
@@ -101,42 +98,26 @@ const hurstRoofing: BVMSiteVariables = {
   services: [
     {
       name: 'Residential Roofing',
-      description:
-        'Complete residential roof installation, repair and replacement with quality materials.',
+      description: 'Complete residential roof installation, repair and replacement with quality materials.',
       photoUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800',
     },
     {
       name: 'Commercial Roofing',
-      description:
-        'Durable commercial roofing solutions for businesses across Burlington County.',
+      description: 'Durable commercial roofing solutions for businesses across Tulsa.',
       photoUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800',
     },
     {
       name: 'Storm Damage Repair',
-      description:
-        'Fast emergency response for storm damage — we protect your home when it matters most.',
+      description: 'Fast emergency response for storm damage — we protect your home when it matters most.',
       photoUrl: 'https://images.unsplash.com/photo-1558618047-f4e90fca3ed9?w=800',
     },
   ],
   faqs: [
     { question: 'Do you offer free estimates?', answer: 'Yes, always free with no obligation.' },
-    {
-      question: 'How long does a roof replacement take?',
-      answer: 'Most residential roofs are completed in 1-2 days.',
-    },
-    {
-      question: 'Are you licensed and insured in NJ?',
-      answer: 'Fully licensed and insured in New Jersey.',
-    },
-    {
-      question: 'Do you work with insurance claims?',
-      answer: 'Yes, we work directly with all major insurance companies.',
-    },
-    {
-      question: 'What areas do you serve?',
-      answer:
-        'Burlington, Riverside, Medford, Delran, Florence, Moorestown, and Willingboro.',
-    },
+    { question: 'How long does a roof replacement take?', answer: 'Most residential roofs are completed in 1-2 days.' },
+    { question: 'Are you licensed and insured?', answer: 'Fully licensed and insured in Oklahoma.' },
+    { question: 'Do you work with insurance claims?', answer: 'Yes, we work directly with all major insurance companies.' },
+    { question: 'What areas do you serve?', answer: 'All of Tulsa County and surrounding areas.' },
   ],
   heroPhotoUrl: 'https://images.unsplash.com/photo-1632823471565-1ecdf5c6da3a?w=1600',
   pricingTier: 'better',
@@ -153,25 +134,29 @@ const hurstRoofing: BVMSiteVariables = {
   ],
   seoStatus: 'submitted',
   businessType: 'Roofing',
+  rawBusinessDescription:
+    'roofing and storm damage repair serving residential and commercial properties in Tulsa Oklahoma',
+  toneHints: ['professional'],
+  audienceHints: [],
 }
 
-// ==================== 3. Best Captain Law (Premier) ====================
-const captainLaw: BVMSiteVariables = {
-  businessName: 'Best Captain Law',
-  ownerName: 'Steve Rogers',
-  phone: '(718) 555-0234',
-  email: 'info@bestcaptainlaw.com',
-  address: '350 Jay St, Suite 400',
-  city: 'Brooklyn',
-  state: 'NY',
-  zip: '11201',
-  domain: 'bestcaptainlaw.com',
+// ==================== 3. Hank & Beans (Premier) ====================
+const hankBeans: BVMSiteVariables = {
+  businessName: 'Hank & Beans Attorneys at Law',
+  ownerName: 'Hank Beans',
+  phone: '(918) 555-0234',
+  email: 'info@hankbeans.com',
+  address: '401 S Boston Ave, Suite 1200',
+  city: 'Tulsa',
+  state: 'OK',
+  zip: '74103',
+  domain: 'hankbeans.com',
   yearsInBusiness: '15',
   tagline: 'Dedicated Legal Service You Can Rely On',
-  heroHeadline: 'Trusted Legal Guidance in Brooklyn, New York',
+  heroHeadline: 'Trusted Legal Guidance in Tulsa, Oklahoma',
   cta: 'Schedule a Consultation',
   aboutText:
-    'At Best Captain Law, Attorney Steve Rogers delivers dependable results-driven legal representation to clients across Brooklyn and surrounding areas. With 15 years of experience, we are committed to clear communication and outcomes that protect your rights.',
+    'At Hank & Beans Attorneys at Law, Attorney Hank Beans delivers dependable results-driven legal representation to clients across Tulsa and surrounding areas. With 15 years of experience, we are committed to clear communication and outcomes that protect your rights.',
   template: 'premier',
   primaryColor: '#1e3a8a',
   secondaryColor: '#c62828',
@@ -179,44 +164,26 @@ const captainLaw: BVMSiteVariables = {
   services: [
     {
       name: 'Family Law',
-      description:
-        'Compassionate and strategic family law services for divorce, custody, and more.',
+      description: 'Compassionate and strategic family law services for divorce, custody, and more.',
       photoUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800',
     },
     {
       name: 'Corporate Law',
-      description:
-        'Comprehensive legal solutions for businesses — contracts, compliance, and disputes.',
+      description: 'Comprehensive legal solutions for businesses — contracts, compliance, and disputes.',
       photoUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800',
     },
     {
       name: 'Criminal Law',
-      description:
-        'Aggressive criminal defense to protect your rights and your future.',
+      description: 'Aggressive criminal defense to protect your rights and your future.',
       photoUrl: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800',
     },
   ],
   faqs: [
-    {
-      question: 'Do you offer free consultations?',
-      answer: 'Yes, we offer a free 30-minute initial consultation.',
-    },
-    {
-      question: 'What areas of law do you practice?',
-      answer: 'Family law, corporate law, and criminal defense.',
-    },
-    {
-      question: 'How long have you been practicing?',
-      answer: 'Attorney Steve Rogers has 15+ years of experience in Brooklyn courts.',
-    },
-    {
-      question: 'Do you handle cases outside Brooklyn?',
-      answer: 'Yes, we serve all five boroughs of New York City.',
-    },
-    {
-      question: 'How do I get started?',
-      answer: 'Call us or fill out the contact form to schedule your free consultation.',
-    },
+    { question: 'Do you offer free consultations?', answer: 'Yes, we offer a free 30-minute initial consultation.' },
+    { question: 'What areas of law do you practice?', answer: 'Family law, corporate law, and criminal defense.' },
+    { question: 'How long have you been practicing?', answer: 'Attorney Hank Beans has 15+ years of experience in Tulsa courts.' },
+    { question: 'Do you handle cases outside Tulsa?', answer: 'Yes, we serve all of Tulsa County and surrounding areas.' },
+    { question: 'How do I get started?', answer: 'Call us or fill out the contact form to schedule your free consultation.' },
   ],
   heroPhotoUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1600',
   pricingTier: 'best',
@@ -234,13 +201,17 @@ const captainLaw: BVMSiteVariables = {
   ],
   seoStatus: 'indexed',
   businessType: 'Legal',
+  rawBusinessDescription:
+    'family law corporate law and criminal defense attorney serving Tulsa Oklahoma and surrounding areas',
+  toneHints: ['authority', 'professional'],
+  audienceHints: ['family', 'adults'],
 }
 
 // ==================== BUILD ====================
 const demos = [
   { file: 'tulsa-green.html', vars: tulsaGreen },
-  { file: 'hurst-roofing.html', vars: hurstRoofing },
-  { file: 'captain-law.html', vars: captainLaw },
+  { file: 'hurst-roofing.html', vars: herreraRoofing },
+  { file: 'captain-law.html', vars: hankBeans },
 ]
 
 const demosDir = path.join(ROOT, 'public', 'demos')
@@ -252,18 +223,33 @@ let successCount = 0
 for (const demo of demos) {
   try {
     const template = loadTemplate(demo.vars.template)
-    const html = injectVariables(template, demo.vars)
+    const { html, normalized } = injectVariables(template, demo.vars)
     const outputPath = path.join(demosDir, demo.file)
     fs.writeFileSync(outputPath, html, 'utf-8')
     const sizeKb = (html.length / 1024).toFixed(1)
     console.log(`  ✓ ${demo.file}  (${sizeKb} KB, template=${demo.vars.template})`)
+    console.log(`    debugReport:`)
+    console.log(`      rawInput: "${normalized.rawInput.slice(0, 80)}"`)
+    console.log(`      matchedPhrase: "${normalized.debugReport.matchedPhrase}"`)
+    console.log(`      primaryCategory: ${normalized.primaryCategory}${normalized.subtype ? '/' + normalized.subtype : ''}`)
+    console.log(`      secondaryCategory: ${normalized.secondaryCategory || '(none)'}`)
+    console.log(`      matchedSignals: [${normalized.matchedSignals.join(', ')}]`)
+    console.log(`      serviceMode: [${normalized.serviceMode.join(', ')}]`)
+    console.log(`      audience: [${normalized.audience.join(', ')}]`)
+    console.log(`      brandTone: [${normalized.brandTone.join(', ')}]`)
+    console.log(`      modifiers: [${normalized.modifiers.join(', ')}]`)
+    console.log(`      photosBucket: ${normalized.debugReport.photosBucket}`)
+    console.log(`      reasoning: ${normalized.debugReport.reasoning}`)
+    console.log(`      heroPhoto: ${normalized.heroPhotoUrl.slice(0, 60)}...`)
+    console.log(`      servicePhotos: [${normalized.servicePhotoUrls.map(u => u.slice(0, 50) + '...').join(', ')}]`)
+    console.log('')
     successCount++
   } catch (err) {
     console.error(`  ✗ ${demo.file} — ${(err as Error).message}`)
   }
 }
 
-console.log(`\nBuilt ${successCount}/${demos.length} demos successfully.`)
+console.log(`Built ${successCount}/${demos.length} demos successfully.`)
 if (successCount !== demos.length) {
   process.exit(1)
 }
