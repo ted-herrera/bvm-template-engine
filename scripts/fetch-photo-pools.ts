@@ -63,21 +63,21 @@ const QUERIES: Record<string, string> = {
 }
 
 async function main() {
-  const pools: Record<string, Array<{ id: string; tags: string[] }>> = {}
+  const pools: Record<string, Array<{ id: string; url: string; tags: string[] }>> = {}
 
   for (const [subtype, query] of Object.entries(QUERIES)) {
     console.log(`Fetching: ${subtype} ("${query}")...`)
     try {
       const photos = await fetchUnsplash(query)
-      // Use the query terms as base tags + sanitized photo description words
       const queryTags = query.toLowerCase().split(/\s+/).filter((t) => t.length > 2)
-      pools[subtype] = photos.map((p, idx) => ({
+      pools[subtype] = photos.map((p) => ({
         id: p.id,
+        url: p.urls.raw.split('?')[0] + '?w=1600&auto=format&fit=crop',
         tags: [
           ...queryTags.slice(0, 3),
           ...((p.alt_description || '') + ' ' + (p.description || ''))
             .toLowerCase()
-            .replace(/[^a-z0-9\s-]/g, '')  // strip all special chars including smart quotes
+            .replace(/[^a-z0-9\s-]/g, '')
             .split(/[\s,]+/)
             .filter((t) => t.length > 2 && !queryTags.includes(t))
             .slice(0, 2),
@@ -118,6 +118,10 @@ function asset(id: string, subtype: string, tags: string[], heroReady = true): P
   }
 }
 
+function verifiedAsset(id: string, url: string, subtype: string, tags: string[], heroReady = true): PhotoAsset {
+  return { id, url, subtype, tags, heroReady, approved: true }
+}
+
 // ── Curated pools — verified via Unsplash API ${new Date().toISOString().slice(0, 10)} ──
 
 const PHOTO_POOLS: Record<string, PhotoAsset[]> = {\n`
@@ -126,8 +130,8 @@ const PHOTO_POOLS: Record<string, PhotoAsset[]> = {\n`
     output += `  ${subtype}: [\n`
     photos.forEach((p, i) => {
       const tagsStr = p.tags.map((t) => `'${t}'`).join(', ')
-      const heroReady = i < 10 // first 10 are hero-ready
-      output += `    asset('${p.id}', '${subtype}', [${tagsStr}]${heroReady ? '' : ', false'}),\n`
+      const heroReady = i < 10
+      output += `    verifiedAsset('${p.id}', '${p.url}', '${subtype}', [${tagsStr}]${heroReady ? '' : ', false'}),\n`
     })
     output += `  ],\n`
   }

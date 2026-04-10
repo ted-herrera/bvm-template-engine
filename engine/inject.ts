@@ -182,6 +182,19 @@ export function injectVariables(
 
   let html = template
 
+  // Indexed service/FAQ tokens (used in tickers, footers, selects, etc.)
+  const services = padServices(vars.services)
+  const faqs = padFaqs(vars.faqs)
+  for (let i = 0; i < services.length; i++) {
+    html = replaceAll(html, `{{services[${i}].name}}`, escapeHtml(services[i].name))
+    html = replaceAll(html, `{{services[${i}].description}}`, escapeHtml(services[i].description))
+    html = replaceAll(html, `{{services[${i}].photoUrl}}`, services[i].photoUrl)
+  }
+  for (let i = 0; i < faqs.length; i++) {
+    html = replaceAll(html, `{{faqs[${i}].question}}`, escapeHtml(faqs[i].question))
+    html = replaceAll(html, `{{faqs[${i}].answer}}`, escapeHtml(faqs[i].answer))
+  }
+
   // Dynamic HTML blocks
   html = replaceAll(html, '{{servicesHtml}}', buildServicesHtml(vars.services, vars.template))
   html = replaceAll(html, '{{faqsHtml}}', buildFaqsHtml(vars.faqs))
