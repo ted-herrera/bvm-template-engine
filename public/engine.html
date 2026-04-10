@@ -59,11 +59,21 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 .badge-escalated { background: var(--orange); color: var(--white); }
 .job-meta { display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: var(--gray-500); }
 
-/* ── Textarea ── */
+/* ── Line-numbered editor ── */
 .html-input-wrap { position: relative; background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; margin-bottom: 12px; }
 .html-input-wrap label { display: block; padding: 10px 14px 0; font-size: 12px; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em; }
-.html-input { width: 100%; min-height: 400px; padding: 10px 14px 30px; border: none; outline: none; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; resize: vertical; background: transparent; color: var(--gray-900); }
+.editor-container { display: flex; max-height: 450px; overflow: auto; }
+.line-numbers { padding: 10px 0; min-width: 44px; text-align: right; background: var(--gray-50); border-right: 1px solid var(--gray-200); user-select: none; flex-shrink: 0; }
+.line-numbers div { padding: 0 10px 0 6px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; color: var(--gray-500); }
+.line-numbers div.error-line { background: #fde8e8; color: var(--red); font-weight: 600; }
+.html-input { width: 100%; min-height: 400px; padding: 10px 14px 30px; border: none; outline: none; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; line-height: 1.6; resize: none; background: transparent; color: var(--gray-900); white-space: pre; overflow-wrap: normal; overflow-x: auto; }
 .char-count { position: absolute; bottom: 8px; right: 14px; font-size: 11px; color: var(--gray-500); }
+
+/* ── Repeat fail banner ── */
+.repeat-fail-banner { background: #fef3e0; border: 1px solid var(--amber); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; font-size: 13px; font-weight: 500; color: #8a6914; display: none; }
+.repeat-fail-banner.red { background: #fde8e8; border-color: var(--red); color: #991b1b; }
+.btn-override { background: var(--amber); color: var(--white); margin-top: 12px; display: none; }
+.btn-override:hover { background: #d4911e; }
 
 .btn { display: block; width: 100%; padding: 12px; border: none; border-radius: 6px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; text-align: center; }
 .btn-teal { background: var(--teal); color: var(--white); }
@@ -145,7 +155,10 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 
       <div class="html-input-wrap">
         <label>Site HTML</label>
-        <textarea class="html-input" id="htmlInput" spellcheck="false"></textarea>
+        <div class="editor-container" id="editorContainer">
+          <div class="line-numbers" id="lineNumbers"></div>
+          <textarea class="html-input" id="htmlInput" spellcheck="false" wrap="off"></textarea>
+        </div>
         <div class="char-count" id="charCount">0 chars</div>
       </div>
 
@@ -180,8 +193,10 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
         </div>
       </div>
 
+      <div class="repeat-fail-banner" id="repeatFailBanner"></div>
       <button class="btn btn-orange" id="escalateBtn" style="display:none;" onclick="escalate()">Escalate for Manual Review</button>
       <button class="btn btn-teal" id="markCompleteBtn" style="display:none; margin-top:12px;" onclick="markComplete()">Mark Complete</button>
+      <button class="btn btn-override" id="overrideBtn" onclick="requestOverride()">Request Manager Override</button>
     </div>
 
     <!-- RIGHT PANEL — Live Preview -->
@@ -206,93 +221,37 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-9
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Mock karate HTML with 2 intentional errors ──
-const MOCK_HTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Champions Karate Academy</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Inter', sans-serif; color: #333; background: #fff; }
-.hero { min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1541836567455-2d41eb6dd9b4?w=1600&auto=format&fit=crop'); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; padding: 4rem 2rem; }
-.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-.hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
-.btn { display:inline-block; background:#c0392b; color:#fff; padding:14px 32px; border-radius:4px; font-weight:600; text-decoration:none; }
-.section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }
-.section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center; }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.card { background: #f8f9fa; border-radius: 8px; padding: 2rem; text-align: center; }
-.card h3 { margin-bottom: 0.5rem; }
-.footer { background: #111; color: #999; padding: 3rem 2rem; text-align: center; }
-</style>
-</head>
-<body>
-
-<section class="hero">
-  <div>
-    <h1>Build Confidence. Build Strength. Build Character.</h1>
-    <p>Tulsa's Premier Kids Martial Arts Academy</p>
-    <a href="#contact" class="btn">Book a Free Trial Class</a>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Our Programs</h2>
-  <p style="text-align:center; margin-bottom:2rem;">Training for ages 4 and up — {{trustBadge2}} certified instructors</p>
-  <div class="cards">
-    <div class="card">
-      <h3>Kids Karate (Ages 4-12)</h3>
-      <p>Age-appropriate martial arts training that builds confidence.</p>
-    </div>
-    <div class="card">
-      <h3>Teen & Adult Self Defense</h3>
-      <p>Practical self-defense techniques for all skill levels.</p>
-    </div>
-    <div class="card">
-      <h3>Gym Membership</h3>
-      <p>Full access to our fitness center and group classes.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:#f8f9fa; max-width:100%; padding:4rem 2rem;">
-  <div style="max-width:1000px; margin:0 auto;">
-    <h2>Why Students Train With Us</h2>
-    <div class="cards">
-      <div class="card"><h3>Expert Instructors</h3><p>Black belt instructors with decades of experience.</p></div>
-      <div class="card"><h3>Safe Environment</h3><p>Structured training with proper supervision.</p></div>
-      <div class="card"><h3>Character Building</h3><p>Discipline, respect, and confidence in every class.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>What Parents Say</h2>
-  <div class="cards">
-    <div class="card"><p>"My kids love it here. They are more confident than ever."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
-    <div class="card"><p>"The instructors are patient, skilled, and genuinely invested."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
-    <div class="card"><p>"Best martial arts school in the area. Great for all ages."</p><p style="margin-top:1rem;font-weight:600;">— Happy Parent, Tulsa</p></div>
-  </div>
-</section>
-
-<footer class="footer">
-  <p>Champions Karate Academy &middot; Tulsa, OK &middot; (918) 555-0311</p>
-  <p style="margin-top:1rem; font-size:12px;">Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</p>
-</footer>
-
-</body>
-</html>`;
+// ── Mock HTML with 2 intentional errors ──
+const MOCK_HTML = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Champions Karate Academy</title>\n<style>\n* { margin:0; padding:0; box-sizing:border-box; }\nbody { font-family: \'Inter\', sans-serif; color: #333; background: #fff; }\n.hero { min-height: 60vh; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(\'https://images.unsplash.com/photo-1541836567455-2d41eb6dd9b4?w=1600&auto=format&fit=crop\'); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; text-align:center; color:#fff; padding: 4rem 2rem; }\n.hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }\n.hero p { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }\n.btn { display:inline-block; background:#c0392b; color:#fff; padding:14px 32px; border-radius:4px; font-weight:600; text-decoration:none; }\n.section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; }\n.section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center; }\n.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }\n.card { background: #f8f9fa; border-radius: 8px; padding: 2rem; text-align: center; }\n.card h3 { margin-bottom: 0.5rem; }\n.footer { background: #111; color: #999; padding: 3rem 2rem; text-align: center; }\n</style>\n</head>\n<body>\n\n<section class="hero">\n  <div>\n    <h1>Build Confidence. Build Strength. Build Character.</h1>\n    <p>Tulsa\'s Premier Kids Martial Arts Academy</p>\n    <a href="#contact" class="btn">Book a Free Trial Class</a>\n  </div>\n</section>\n\n<section class="section">\n  <h2>Our Programs</h2>\n  <p style="text-align:center; margin-bottom:2rem;">Training for ages 4 and up \u2014 {{trustBadge2}} certified instructors</p>\n  <div class="cards">\n    <div class="card">\n      <h3>Kids Karate (Ages 4-12)</h3>\n      <p>Age-appropriate martial arts training that builds confidence.</p>\n    </div>\n    <div class="card">\n      <h3>Teen & Adult Self Defense</h3>\n      <p>Practical self-defense techniques for all skill levels.</p>\n    </div>\n    <div class="card">\n      <h3>Gym Membership</h3>\n      <p>Full access to our fitness center and group classes.</p>\n    </div>\n  </div>\n</section>\n\n<section class="section" style="background:#f8f9fa; max-width:100%; padding:4rem 2rem;">\n  <div style="max-width:1000px; margin:0 auto;">\n    <h2>Why Students Train With Us</h2>\n    <div class="cards">\n      <div class="card"><h3>Expert Instructors</h3><p>Black belt instructors with decades of experience.</p></div>\n      <div class="card"><h3>Safe Environment</h3><p>Structured training with proper supervision.</p></div>\n      <div class="card"><h3>Character Building</h3><p>Discipline, respect, and confidence in every class.</p></div>\n    </div>\n  </div>\n</section>\n\n<section class="section">\n  <h2>What Parents Say</h2>\n  <div class="cards">\n    <div class="card"><p>"My kids love it here. They are more confident than ever."</p><p style="margin-top:1rem;font-weight:600;">\u2014 Happy Parent, Tulsa</p></div>\n    <div class="card"><p>"The instructors are patient, skilled, and genuinely invested."</p><p style="margin-top:1rem;font-weight:600;">\u2014 Happy Parent, Tulsa</p></div>\n    <div class="card"><p>"Best martial arts school in the area. Great for all ages."</p><p style="margin-top:1rem;font-weight:600;">\u2014 Happy Parent, Tulsa</p></div>\n  </div>\n</section>\n\n<footer class="footer">\n  <p>Champions Karate Academy &middot; Tulsa, OK &middot; (918) 555-0311</p>\n  <p style="margin-top:1rem; font-size:12px;">Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</p>\n</footer>\n\n</body>\n</html>';
 
 // ── State ──
 let lastScore = null;
+let failCount = 0;
+let errorLines = new Set();
+let engineLocked = false;
 
 // ── Init ──
 const htmlInput = document.getElementById('htmlInput');
 htmlInput.value = MOCK_HTML;
+updateLineNumbers();
 updateCharCount();
-htmlInput.addEventListener('input', updateCharCount);
+htmlInput.addEventListener('input', function() { updateLineNumbers(); updateCharCount(); });
+htmlInput.addEventListener('scroll', syncScroll);
+
+function syncScroll() {
+  document.getElementById('lineNumbers').scrollTop = htmlInput.scrollTop;
+}
+
+function updateLineNumbers() {
+  const lines = htmlInput.value.split('\n');
+  const ln = document.getElementById('lineNumbers');
+  let html = '';
+  for (let i = 1; i <= lines.length; i++) {
+    const cls = errorLines.has(i) ? ' class="error-line"' : '';
+    html += '<div' + cls + '>' + i + '</div>';
+  }
+  ln.innerHTML = html;
+}
 
 function updateCharCount() {
   document.getElementById('charCount').textContent = htmlInput.value.length.toLocaleString() + ' chars';
@@ -302,14 +261,13 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3500);
+  setTimeout(function() { t.classList.remove('show'); }, 3500);
 }
 
 function setView(mode, btn) {
-  document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view-toggle button').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  const frame = document.getElementById('previewFrame');
-  frame.classList.toggle('mobile', mode === 'mobile');
+  document.getElementById('previewFrame').classList.toggle('mobile', mode === 'mobile');
 }
 
 function scoreColor(val) {
@@ -318,20 +276,38 @@ function scoreColor(val) {
   return 'var(--red)';
 }
 
+function resetCenterPanel() {
+  document.getElementById('scoreNumber').textContent = '...';
+  document.getElementById('scoreNumber').style.color = 'var(--gray-300)';
+  document.getElementById('decisionBadge').style.display = 'none';
+  document.getElementById('scoreBars').innerHTML = '<div class="empty-state" style="padding:20px;"><p style="font-size:16px;font-weight:600;">Scoring...</p></div>';
+  document.getElementById('hardFailsSection').style.display = 'none';
+  document.getElementById('warningsSection').style.display = 'none';
+  document.getElementById('escalateBtn').style.display = 'none';
+  document.getElementById('markCompleteBtn').style.display = 'none';
+  document.getElementById('approvedBadge').style.display = 'none';
+}
+
 async function runEngine() {
-  const html = htmlInput.value;
+  if (engineLocked) { showToast('Engine locked — manager override required'); return; }
+  var html = htmlInput.value;
   if (!html.trim()) { showToast('Paste HTML first'); return; }
 
-  const btn = document.getElementById('runEngine');
+  // Reset center panel immediately
+  resetCenterPanel();
+  errorLines = new Set();
+  updateLineNumbers();
+
+  var btn = document.getElementById('runEngine');
   btn.textContent = 'Scoring...';
   btn.classList.add('btn-disabled');
 
   try {
-    const res = await fetch('/api/engine/score', {
+    var res = await fetch('/api/engine/score', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        html,
+        html: html,
         businessName: 'Champions Karate Academy',
         subtype: 'martial_arts',
         serviceLabels: ['Kids Karate', 'Teen Self Defense', 'Belt Testing'],
@@ -341,72 +317,132 @@ async function runEngine() {
         heroTags: ['karate', 'kids', 'dojo'],
       }),
     });
-    const data = await res.json();
+    var data = await res.json();
     lastScore = data;
+
+    // Extract error line numbers for highlighting
+    errorLines = new Set();
+    if (data.hardFails) {
+      data.hardFails.forEach(function(f) {
+        var m = f.match(/line (\d+)/i);
+        if (m) errorLines.add(parseInt(m[1]));
+      });
+    }
+    updateLineNumbers();
+
     renderScore(data);
     renderPreview(html);
+
+    // Repeat fail tracking (only count non-PASS results)
+    if (data.decision !== 'PASS') {
+      failCount++;
+      handleRepeatFails(data);
+    } else {
+      // Reset on pass
+      failCount = 0;
+      document.getElementById('repeatFailBanner').style.display = 'none';
+    }
   } catch (err) {
     showToast('Engine error — check console');
     console.error(err);
   } finally {
     btn.textContent = 'Run Engine';
-    btn.classList.remove('btn-disabled');
+    if (!engineLocked) btn.classList.remove('btn-disabled');
+  }
+}
+
+function handleRepeatFails(data) {
+  var banner = document.getElementById('repeatFailBanner');
+  var overrideBtn = document.getElementById('overrideBtn');
+
+  if (failCount === 1) {
+    banner.style.display = 'none';
+    overrideBtn.style.display = 'none';
+  } else if (failCount === 2) {
+    banner.className = 'repeat-fail-banner';
+    banner.style.display = 'block';
+    banner.textContent = 'Failed twice \u2014 review all errors carefully';
+    overrideBtn.style.display = 'none';
+  } else if (failCount >= 3) {
+    banner.className = 'repeat-fail-banner red';
+    banner.style.display = 'block';
+    banner.textContent = 'Failed 3 times \u2014 auto-escalation sent. Engine locked.';
+    overrideBtn.style.display = 'block';
+
+    // Auto-escalate
+    engineLocked = true;
+    document.getElementById('runEngine').classList.add('btn-disabled');
+    document.getElementById('runEngine').textContent = 'Engine Locked';
+
+    // Fire escalation
+    fetch('/api/email/escalate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        subject: 'REPEAT FAIL \u2014 Champions Karate Academy failed engine 3 times',
+        body: 'Business: Champions Karate Academy\nHard Fails: ' + (data.hardFails || []).join('; ') + '\nDev: dev1\nJob ID: JOB-001',
+      }),
+    }).catch(function() {});
+
+    showToast('Auto-escalation sent to Sal and Elizabeth');
+
+    // Add escalated badge to job card
+    if (!document.querySelector('.badge-escalated')) {
+      var badge = document.createElement('span');
+      badge.className = 'badge badge-escalated';
+      badge.textContent = 'ESCALATED';
+      badge.style.marginLeft = '8px';
+      document.querySelector('.job-card h2').appendChild(badge);
+    }
   }
 }
 
 function renderScore(data) {
-  // Score number
-  const sn = document.getElementById('scoreNumber');
+  var sn = document.getElementById('scoreNumber');
   sn.textContent = data.score100;
   sn.style.color = data.score100 === 100 ? 'var(--green)' : data.score100 >= 70 ? 'var(--amber)' : 'var(--red)';
 
-  // Decision badge
-  const db = document.getElementById('decisionBadge');
+  var db = document.getElementById('decisionBadge');
   db.style.display = 'inline-block';
   db.textContent = data.decision;
   db.className = 'decision-badge badge-' + data.decision.toLowerCase();
 
-  // Score bars
-  const dims = [
+  var dims = [
     ['Category Alignment', data.categoryAlignment],
     ['Copy Alignment', data.copyAlignment],
     ['Service Alignment', data.serviceAlignment],
     ['CTA Alignment', data.ctaAlignment],
     ['Cross-Section Consistency', data.crossSectionConsistency],
   ];
-  let barsHtml = '';
-  for (const [label, val] of dims) {
-    const pct = Math.min(100, (val / 10) * 100);
+  var barsHtml = '';
+  for (var i = 0; i < dims.length; i++) {
+    var label = dims[i][0], val = dims[i][1];
+    var pct = Math.min(100, (val / 10) * 100);
     barsHtml += '<div class="score-bar"><div class="score-bar-label"><span>' + label + '</span><span>' + val.toFixed(1) + '</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:' + pct + '%;background:' + scoreColor(val) + '"></div></div></div>';
   }
   document.getElementById('scoreBars').innerHTML = barsHtml;
 
-  // Hard fails
-  const hfSection = document.getElementById('hardFailsSection');
-  const hfList = document.getElementById('hardFailsList');
+  var hfSection = document.getElementById('hardFailsSection');
+  var hfList = document.getElementById('hardFailsList');
   if (data.hardFails && data.hardFails.length > 0) {
     hfSection.style.display = 'block';
-    hfList.innerHTML = data.hardFails.map(f => '<div class="issue-card"><div class="issue-title">Hard Fail</div><div class="issue-detail">' + escapeH(f) + '</div></div>').join('');
+    hfList.innerHTML = data.hardFails.map(function(f) { return '<div class="issue-card"><div class="issue-title">Hard Fail</div><div class="issue-detail">' + escapeH(f) + '</div></div>'; }).join('');
   } else {
     hfSection.style.display = 'none';
   }
 
-  // Warnings
-  const wSection = document.getElementById('warningsSection');
-  const wList = document.getElementById('warningsList');
+  var wSection = document.getElementById('warningsSection');
+  var wList = document.getElementById('warningsList');
   if (data.warnings && data.warnings.length > 0) {
     wSection.style.display = 'block';
-    wList.innerHTML = data.warnings.map(w => '<div class="issue-card warn"><div class="issue-title">Warning</div><div class="issue-detail">' + escapeH(w) + '</div></div>').join('');
+    wList.innerHTML = data.warnings.map(function(w) { return '<div class="issue-card warn"><div class="issue-title">Warning</div><div class="issue-detail">' + escapeH(w) + '</div></div>'; }).join('');
   } else {
     wSection.style.display = 'none';
   }
 
-  // Escalate button
-  const escBtn = document.getElementById('escalateBtn');
-  escBtn.style.display = (data.decision === 'FAIL' || data.decision === 'ESCALATE') ? 'block' : 'none';
+  document.getElementById('escalateBtn').style.display = (data.decision === 'FAIL' || data.decision === 'ESCALATE') ? 'block' : 'none';
 
-  // Mark Complete button
-  const mcBtn = document.getElementById('markCompleteBtn');
+  var mcBtn = document.getElementById('markCompleteBtn');
   mcBtn.style.display = 'block';
   if (data.score100 === 100) {
     mcBtn.classList.remove('btn-disabled');
@@ -416,7 +452,6 @@ function renderScore(data) {
     mcBtn.setAttribute('data-tooltip', 'Resolve all errors to unlock');
   }
 
-  // Approved badge
   document.getElementById('approvedBadge').style.display = data.score100 === 100 ? 'block' : 'none';
 }
 
@@ -429,25 +464,32 @@ function escapeH(s) {
 }
 
 function escalate() {
-  // Simulate escalation
-  showToast('Escalation sent — lead notified');
-  const badge = document.createElement('span');
-  badge.className = 'badge badge-escalated';
-  badge.textContent = 'ESCALATED';
-  badge.style.marginLeft = '8px';
-  document.querySelector('.job-card h2').appendChild(badge);
+  showToast('Escalation sent \u2014 lead notified');
+  if (!document.querySelector('.badge-escalated')) {
+    var badge = document.createElement('span');
+    badge.className = 'badge badge-escalated';
+    badge.textContent = 'ESCALATED';
+    badge.style.marginLeft = '8px';
+    document.querySelector('.job-card h2').appendChild(badge);
+  }
   document.getElementById('escalateBtn').classList.add('btn-disabled');
   document.getElementById('escalateBtn').textContent = 'Escalation Sent';
 }
 
 function markComplete() {
   if (!lastScore || lastScore.score100 !== 100) return;
-  showToast('Site marked complete — onboarding, AM, and client notified');
-  const db = document.getElementById('decisionBadge');
+  showToast('Site marked complete \u2014 onboarding, AM, and client notified');
+  var db = document.getElementById('decisionBadge');
   db.textContent = 'COMPLETE';
   db.className = 'decision-badge badge-pass';
   document.getElementById('markCompleteBtn').textContent = 'Completed';
   document.getElementById('markCompleteBtn').classList.add('btn-disabled');
+}
+
+function requestOverride() {
+  showToast('Override request sent to Sal and Elizabeth');
+  document.getElementById('overrideBtn').classList.add('btn-disabled');
+  document.getElementById('overrideBtn').textContent = 'Override Requested';
 }
 </script>
 </body>
