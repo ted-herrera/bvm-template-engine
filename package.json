@@ -9,10 +9,16 @@
     "build": "tsc",
     "build:demos": "ts-node scripts/build-demos.ts"
   },
-  "keywords": ["bvm", "template", "engine", "express"],
+  "keywords": [
+    "bvm",
+    "template",
+    "engine",
+    "express"
+  ],
   "author": "Ted Herrera",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.87.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
