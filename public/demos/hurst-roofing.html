@@ -445,7 +445,7 @@ section { padding: 5rem 0; }
 <!-- 2. TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free Residential Roofing Estimates</span><span>&middot;</span><span>Expert Commercial Roofing Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span>
+    <span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span><span>Free {{services[0].name}} Estimates</span><span>&middot;</span><span>Expert {{services[1].name}} Repairs</span><span>&middot;</span><span>Serving Tulsa</span><span>&middot;</span><span>Locally Owned</span><span>&middot;</span>
   </div>
 </div>
 
@@ -455,13 +455,13 @@ section { padding: 5rem 0; }
     <h1>Reliable Roofing You Can Trust</h1>
     <p class="hero-subtitle">Tulsa&#39;s Most Trusted Roofing Company</p>
     <div class="trust-signals">
-      <span>Licensed</span>
+      <span>Licensed &amp; Insured</span>
       <span>&middot;</span>
-      <span>Insured</span>
+      <span>Free Inspections</span>
       <span>&middot;</span>
-      <span>Free Estimates</span>
+      <span>Storm Damage Experts</span>
       <span>&middot;</span>
-      <span>18+ Years</span>
+      <span>Warranty Backed</span>
     </div>
     <div class="hero-estimate-form">
       <h4>Get a Free Estimate</h4>
@@ -471,9 +471,9 @@ section { padding: 5rem 0; }
           <input type="tel" placeholder="Phone Number" required>
           <select required>
             <option value="" disabled selected>Select Service</option>
-            <option value="Residential Roofing">Residential Roofing</option>
-            <option value="Commercial Roofing">Commercial Roofing</option>
-            <option value="Storm Damage Repair">Storm Damage Repair</option>
+                      <option value="Residential Roofing">Residential Roofing</option>
+          <option value="Commercial Roofing">Commercial Roofing</option>
+          <option value="Storm Damage Repair">Storm Damage Repair</option>
           </select>
         </div>
         <button type="submit" class="btn-secondary">Submit Request</button>
@@ -491,7 +491,7 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="about-grid">
       <div>
-        <h4 class="about-eyebrow">Local Experts</h4>
+        <h4 class="about-eyebrow">LOCAL EXPERTS</h4>
         <h2>About Herrera Roofing</h2>
         <p class="about-text">Owned and operated by Ted Herrera, Herrera Roofing proudly serves homeowners and property owners across Tulsa with dependable roofing solutions and exceptional workmanship.</p>
         <a href="#contact" class="btn-primary-solid">About Us</a>
@@ -509,7 +509,7 @@ section { padding: 5rem 0; }
   <div class="container">
     <div class="why-header">
       <h2>Why Homeowners Choose Us</h2>
-      <p>Trusted Professionals in Tulsa</p>
+      <p>THE ADVANTAGE</p>
     </div>
     <div class="features">
       <div class="feature-card">
@@ -543,22 +543,22 @@ section { padding: 5rem 0; }
       <h2 style="color:#fff;">Our Services</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
-        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800')"></div>
+            <div class="service-card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="body">
           <h3>Residential Roofing</h3>
           <p>Complete residential roof installation, repair and replacement with quality materials.</p>
         </div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800')"></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="body">
           <h3>Commercial Roofing</h3>
           <p>Durable commercial roofing solutions for businesses across Tulsa.</p>
         </div>
       </div>
       <div class="service-card">
-        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1558618047-f4e90fca3ed9?w=800')"></div>
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1558618047-f4e90fca3ed9?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="body">
           <h3>Storm Damage Repair</h3>
           <p>Fast emergency response for storm damage — we protect your home when it matters most.</p>
@@ -577,17 +577,17 @@ section { padding: 5rem 0; }
     <div class="reviews-grid">
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>"Absolutely outstanding work. Professional from start to finish, and the results exceeded our expectations. Highly recommend to anyone in the area."</p>
+        <p>Outstanding work. Professional from start to finish, and the results exceeded our expectations.</p>
         <div class="author">&mdash; Satisfied Customer, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>"Fair pricing, great communication, and top-quality craftsmanship. They showed up on time and left the job site spotless. Will definitely use again."</p>
+        <p>Fair pricing, great communication, and top-quality craftsmanship. Will use again.</p>
         <div class="author">&mdash; Satisfied Customer, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>"From the initial estimate to the final walkthrough, every step was handled with care. Truly a team of professionals who stand behind their work."</p>
+        <p>Every step was handled with care. Truly a team of professionals who stand behind their work.</p>
         <div class="author">&mdash; Satisfied Customer, Tulsa</div>
       </div>
     </div>
@@ -601,7 +601,7 @@ section { padding: 5rem 0; }
       <h2>Frequently Asked Questions</h2>
     </div>
     <div class="faq">
-      <div class="faq-item">
+            <div class="faq-item">
         <div class="faq-question">Do you offer free estimates?</div>
         <div class="faq-answer"><p>Yes, always free with no obligation.</p></div>
       </div>
@@ -649,7 +649,7 @@ section { padding: 5rem 0; }
 <!-- 10. CTA BANNER -->
 <section class="cta-banner">
   <div class="container">
-    <h2>Call Us Today</h2>
+    <h2>Protect Your Home — Call Us Today</h2>
     <div class="phone-display"><a href="tel:(918) 555-0187">(918) 555-0187</a></div>
     <a href="#contact" class="btn-secondary">Contact Us</a>
   </div>
@@ -703,7 +703,7 @@ section { padding: 5rem 0; }
       <div>
         <h4>Services</h4>
         <ul>
-          <li>Residential Roofing</li>
+                    <li>Residential Roofing</li>
           <li>Commercial Roofing</li>
           <li>Storm Damage Repair</li>
         </ul>
@@ -718,7 +718,7 @@ section { padding: 5rem 0; }
       </div>
     </div>
     <div class="footer-bottom">
-      <span><span class="seo-badge seo-submitted">Google Submitted</span></span>
+      <span><span class="seo-badge" data-status="submitted"></span></span>
       <span>Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</span>
     </div>
   </div>
@@ -741,6 +741,10 @@ document.querySelectorAll('.faq-question').forEach(function(q) {
 window.addEventListener('scroll', function() {
   document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 50);
 });
+</script>
+<script>
+/* SEO Badge */
+(function(){var b=document.querySelector('.seo-badge');if(!b)return;var s=b.dataset.status;var m={'not-submitted':['#9ca3af','SEO Pending'],'submitted':['#f59e0b','Google Submitted'],'indexed':['#22c55e','Google Indexed']};var r=m[s]||m['not-submitted'];b.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:'+r[0]+';display:inline-block;margin-right:6px"></span>'+r[1];})();
 </script>
 </body>
 </html>

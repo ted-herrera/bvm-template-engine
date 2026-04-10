@@ -413,9 +413,7 @@ section { padding: 6rem 0; }
       <li>
         <a href="#services">Services</a>
         <ul class="nav-dropdown">
-          <li><a href="#services">{{services[0].name}}</a></li>
-          <li><a href="#services">{{services[1].name}}</a></li>
-          <li><a href="#services">{{services[2].name}}</a></li>
+          {{serviceFooterList}}
         </ul>
       </li>
       <li><a href="#faq">FAQs</a></li>
@@ -453,7 +451,7 @@ section { padding: 6rem 0; }
   <div class="container">
     <div class="about-grid">
       <div>
-        <div class="about-eyebrow">Our Story</div>
+        <div class="about-eyebrow">{{aboutEyebrow}}</div>
         <h2>Meet {{ownerName}}</h2>
         <p class="about-text">{{aboutText}}</p>
         <div class="about-stat">{{yearsInBusiness}} Years</div>
@@ -469,38 +467,38 @@ section { padding: 6rem 0; }
 <section class="section-why">
   <div class="container">
     <div class="section-header">
-      <h2>Why Choose Us</h2>
+      <h2>{{whyHeadline}}</h2>
     </div>
     <div class="why-grid">
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8 2 4 5 4 9c0 5 8 13 8 13s8-8 8-13c0-4-4-7-8-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        <h4>Local Experience</h4>
-        <p>Deep roots in the community with genuine local knowledge.</p>
+        <h4>{{whyCard0Title}}</h4>
+        <p>{{whyCard0Body}}</p>
       </div>
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <h4>Clear Communication</h4>
-        <p>Transparent updates and honest conversations every step of the way.</p>
+        <h4>{{whyCard1Title}}</h4>
+        <p>{{whyCard1Body}}</p>
       </div>
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z"/></svg>
-        <h4>Consistent Quality</h4>
-        <p>Reliable results you can count on, time after time.</p>
+        <h4>{{whyCard2Title}}</h4>
+        <p>{{whyCard2Body}}</p>
       </div>
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6 L12 12 L16 14"/></svg>
-        <h4>Fast Service</h4>
-        <p>Quick turnaround without cutting corners on quality.</p>
+        <h4>{{whyCard3Title}}</h4>
+        <p>{{whyCard3Body}}</p>
       </div>
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 L12 14.01 L9 11.01"/></svg>
-        <h4>Premium Results</h4>
-        <p>Exceptional outcomes that exceed expectations.</p>
+        <h4>{{whyCard4Title}}</h4>
+        <p>{{whyCard4Body}}</p>
       </div>
       <div class="why-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <h4>Customer First</h4>
-        <p>Your satisfaction drives every decision we make.</p>
+        <h4>{{whyCard5Title}}</h4>
+        <p>{{whyCard5Body}}</p>
       </div>
     </div>
   </div>
@@ -510,27 +508,10 @@ section { padding: 6rem 0; }
 <section id="services" class="section-services">
   <div class="container">
     <div class="services-heading">
-      <h2>Our Services</h2>
+      <h2>{{servicesLabel}}</h2>
     </div>
     <div class="services-gallery">
-      <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('{{services[0].photoUrl}}')"></div>
-        <div class="sg-overlay"></div>
-        <h3>{{services[0].name}}</h3>
-      </div>
-      <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('{{services[1].photoUrl}}')"></div>
-        <div class="sg-overlay"></div>
-        <h3>{{services[1].name}}</h3>
-      </div>
-      <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('{{services[2].photoUrl}}')"></div>
-        <div class="sg-overlay"></div>
-        <h3>{{services[2].name}}</h3>
-      </div>
-      <a href="#contact" class="service-contact-card">
-        <span>Contact Us</span>
-      </a>
+      {{servicesHtml}}
     </div>
   </div>
 </section>
@@ -539,26 +520,26 @@ section { padding: 6rem 0; }
 <section id="reviews" class="section-reviews">
   <div class="container">
     <div class="section-header">
-      <div class="reviews-eyebrow">Client Feedback</div>
-      <h2>What People Say</h2>
+      <div class="reviews-eyebrow">{{reviewsEyebrow}}</div>
+      <h2>{{reviewsLabel}}</h2>
     </div>
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"An outstanding experience from beginning to end. Truly top-notch service."</p>
+        <p class="review-text">{{review0Text}}</p>
         <div class="review-author">&mdash; Client, {{city}}</div>
       </div>
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"Professional, reliable, and exceeded all of our expectations. Highly recommend."</p>
+        <p class="review-text">{{review1Text}}</p>
         <div class="review-author">&mdash; Client, {{city}}</div>
       </div>
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"We couldn't be happier with the results. Will absolutely be returning."</p>
+        <p class="review-text">{{review2Text}}</p>
         <div class="review-author">&mdash; Client, {{city}}</div>
       </div>
     </div>
@@ -568,31 +549,12 @@ section { padding: 6rem 0; }
 <!-- 8. FAQ -->
 <section id="faq" class="section-faq">
   <div class="container">
-    <div class="faq-eyebrow">Common Questions</div>
+    <div class="faq-eyebrow">{{faqEyebrow}}</div>
     <div class="section-header">
-      <h2>Frequently Asked Questions</h2>
+      <h2>{{faqLabel}}</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question">{{faqs[0].question}}</div>
-        <div class="faq-answer"><p>{{faqs[0].answer}}</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">{{faqs[1].question}}</div>
-        <div class="faq-answer"><p>{{faqs[1].answer}}</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">{{faqs[2].question}}</div>
-        <div class="faq-answer"><p>{{faqs[2].answer}}</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">{{faqs[3].question}}</div>
-        <div class="faq-answer"><p>{{faqs[3].answer}}</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">{{faqs[4].question}}</div>
-        <div class="faq-answer"><p>{{faqs[4].answer}}</p></div>
-      </div>
+      {{faqsHtml}}
     </div>
   </div>
 </section>
@@ -615,7 +577,7 @@ section { padding: 6rem 0; }
 <!-- 10. CTA BANNER -->
 <section class="cta-banner">
   <div class="container">
-    <h2>{{heroHeadline}}</h2>
+    <h2>{{ctaBannerHeadline}}</h2>
     <a href="#contact" class="btn-primary">{{cta}}</a>
   </div>
 </section>
@@ -667,9 +629,7 @@ section { padding: 6rem 0; }
       <div>
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">{{services[0].name}}</a></li>
-          <li><a href="#services">{{services[1].name}}</a></li>
-          <li><a href="#services">{{services[2].name}}</a></li>
+          {{serviceFooterList}}
         </ul>
       </div>
       <div>
@@ -705,6 +665,10 @@ document.querySelectorAll('.faq-question').forEach(function(q) {
 window.addEventListener('scroll', function() {
   document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 50);
 });
+</script>
+<script>
+/* SEO Badge */
+(function(){var b=document.querySelector('.seo-badge');if(!b)return;var s=b.dataset.status;var m={'not-submitted':['#9ca3af','SEO Pending'],'submitted':['#f59e0b','Google Submitted'],'indexed':['#22c55e','Google Indexed']};var r=m[s]||m['not-submitted'];b.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:'+r[0]+';display:inline-block;margin-right:6px"></span>'+r[1];})();
 </script>
 </body>
 </html>

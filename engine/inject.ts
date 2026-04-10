@@ -12,18 +12,6 @@ const EMPTY_FAQ = {
   answer: 'Yes — reach out any time and we will get right back to you.',
 }
 
-function seoBadge(status: BVMSiteVariables['seoStatus']): string {
-  switch (status) {
-    case 'indexed':
-      return '<span class="seo-badge seo-indexed">Google Indexed</span>'
-    case 'submitted':
-      return '<span class="seo-badge seo-submitted">Google Submitted</span>'
-    case 'not-submitted':
-    default:
-      return '<span class="seo-badge seo-pending">SEO Pending</span>'
-  }
-}
-
 function escapeHtml(value: string): string {
   if (value == null) return ''
   return String(value)
@@ -39,7 +27,7 @@ function padServices(services: BVMSiteVariables['services']): BVMSiteVariables['
   while (padded.length < 3) {
     padded.push({ ...EMPTY_SERVICE, name: `Service ${padded.length + 1}` })
   }
-  return padded.slice(0, 3)
+  return padded
 }
 
 function padFaqs(faqs: BVMSiteVariables['faqs']): BVMSiteVariables['faqs'] {
@@ -47,7 +35,7 @@ function padFaqs(faqs: BVMSiteVariables['faqs']): BVMSiteVariables['faqs'] {
   while (padded.length < 5) {
     padded.push({ ...EMPTY_FAQ })
   }
-  return padded.slice(0, 5)
+  return padded
 }
 
 function replaceAll(haystack: string, needle: string, value: string): string {
@@ -59,11 +47,81 @@ function buildPricingFeatures(features: string[]): string {
   return features.map((f) => `<li>${escapeHtml(f)}</li>`).join('\n')
 }
 
+// ── Dynamic HTML builders per template type ──
+
+function buildServicesHtml(
+  services: BVMSiteVariables['services'],
+  templateType: string,
+): string {
+  const safe = padServices(services)
+  if (templateType === 'premier') {
+    let html = ''
+    for (const svc of safe) {
+      html += `      <div class="service-gallery-card">
+        <div class="sg-bg" style="background-image:url('${svc.photoUrl}')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
+        <div class="sg-overlay"></div>
+        <h3>${escapeHtml(svc.name)}</h3>
+      </div>\n`
+    }
+    html += `      <a href="#contact" class="service-contact-card">
+        <span>Contact Us</span>
+      </a>`
+    return html
+  }
+  if (templateType === 'local') {
+    return safe
+      .map(
+        (svc) => `      <div class="service-card">
+        <div class="img" style="background-image:url('${svc.photoUrl}')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
+        <div class="name-bar"><h3>${escapeHtml(svc.name)}</h3></div>
+        <div class="body"><p>${escapeHtml(svc.description)}</p></div>
+      </div>`,
+      )
+      .join('\n')
+  }
+  // community (default)
+  return safe
+    .map(
+      (svc) => `      <div class="service-card">
+        <div class="img" style="background-image:url('${svc.photoUrl}')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
+        <div class="body">
+          <h3>${escapeHtml(svc.name)}</h3>
+          <p>${escapeHtml(svc.description)}</p>
+        </div>
+      </div>`,
+    )
+    .join('\n')
+}
+
+function buildFaqsHtml(faqs: BVMSiteVariables['faqs']): string {
+  const safe = padFaqs(faqs)
+  return safe
+    .map(
+      (faq) => `      <div class="faq-item">
+        <div class="faq-question">${escapeHtml(faq.question)}</div>
+        <div class="faq-answer"><p>${escapeHtml(faq.answer)}</p></div>
+      </div>`,
+    )
+    .join('\n')
+}
+
+function buildServiceOptions(services: BVMSiteVariables['services']): string {
+  const safe = padServices(services)
+  return safe
+    .map((svc) => `          <option value="${escapeHtml(svc.name)}">${escapeHtml(svc.name)}</option>`)
+    .join('\n')
+}
+
+function buildServiceFooterList(services: BVMSiteVariables['services']): string {
+  const safe = padServices(services)
+  return safe.map((svc) => `          <li>${escapeHtml(svc.name)}</li>`).join('\n')
+}
+
 export function injectVariables(
   template: string,
   vars: BVMSiteVariables,
 ): { html: string; normalized: NormalizedBusiness } {
-  // Run normalization — auto-fill empty photos
+  // Run normalization
   const normalized = normalize(
     vars.businessType,
     vars.rawBusinessDescription,
@@ -71,10 +129,10 @@ export function injectVariables(
     vars.audienceHints,
   )
 
+  // Auto-fill photos (never overwrite)
   if (!vars.heroPhotoUrl) {
     vars.heroPhotoUrl = normalized.heroPhotoUrl
   }
-
   if (Array.isArray(vars.services)) {
     vars.services.forEach((svc, i) => {
       if (svc && !svc.photoUrl) {
@@ -83,31 +141,65 @@ export function injectVariables(
     })
   }
 
+  // Flatten sectionCopy — only inject if not already set
+  const copy = normalized.sectionCopy
+  const extras: Record<string, string> = {}
+
+  const copyFields: Array<[string, string]> = [
+    ['aboutEyebrow', copy.aboutEyebrow],
+    ['whyEyebrow', copy.whyEyebrow],
+    ['whyHeadline', copy.whyHeadline],
+    ['servicesLabel', copy.servicesLabel],
+    ['servicesEyebrow', copy.servicesEyebrow],
+    ['reviewsLabel', copy.reviewsLabel],
+    ['reviewsEyebrow', copy.reviewsEyebrow],
+    ['faqEyebrow', copy.faqEyebrow],
+    ['faqLabel', copy.faqLabel],
+    ['ctaBannerHeadline', copy.ctaHeadline],
+    ['ctaBannerSub', copy.ctaText],
+    ['packageLabel', copy.packageLabel],
+  ]
+  for (const [key, val] of copyFields) {
+    extras[key] = val
+  }
+
+  // Trust badges
+  for (let i = 0; i < 4; i++) {
+    extras[`trustBadge${i}`] = copy.trustBadges[i] || ''
+  }
+
+  // Why cards (up to 6)
+  for (let i = 0; i < 6; i++) {
+    const card = copy.whyCards[i]
+    extras[`whyCard${i}Title`] = card ? card.title : ''
+    extras[`whyCard${i}Body`] = card ? card.body : ''
+  }
+
+  // Review snippets
+  for (let i = 0; i < 3; i++) {
+    extras[`review${i}Text`] = copy.reviewSnippets[i] || ''
+  }
+
   let html = template
 
-  const services = padServices(vars.services)
-  const faqs = padFaqs(vars.faqs)
+  // Dynamic HTML blocks
+  html = replaceAll(html, '{{servicesHtml}}', buildServicesHtml(vars.services, vars.template))
+  html = replaceAll(html, '{{faqsHtml}}', buildFaqsHtml(vars.faqs))
+  html = replaceAll(html, '{{serviceOptions}}', buildServiceOptions(vars.services))
+  html = replaceAll(html, '{{serviceFooterList}}', buildServiceFooterList(vars.services))
 
-  // Service slots
-  for (let i = 0; i < 3; i++) {
-    html = replaceAll(html, `{{services[${i}].name}}`, escapeHtml(services[i].name))
-    html = replaceAll(html, `{{services[${i}].description}}`, escapeHtml(services[i].description))
-    html = replaceAll(html, `{{services[${i}].photoUrl}}`, services[i].photoUrl)
-  }
+  // SEO badge (data attribute for client-side rendering)
+  html = replaceAll(html, '{{seoStatusBadge}}', `<span class="seo-badge" data-status="${escapeHtml(vars.seoStatus)}"></span>`)
 
-  // FAQ slots
-  for (let i = 0; i < 5; i++) {
-    html = replaceAll(html, `{{faqs[${i}].question}}`, escapeHtml(faqs[i].question))
-    html = replaceAll(html, `{{faqs[${i}].answer}}`, escapeHtml(faqs[i].answer))
-  }
-
-  // SEO badge
-  html = replaceAll(html, '{{seoStatusBadge}}', seoBadge(vars.seoStatus))
-
-  // Pricing features as <li> items
+  // Pricing features
   html = replaceAll(html, '{{pricingFeaturesHtml}}', buildPricingFeatures(vars.pricingFeatures || []))
 
-  // Simple scalar keys — order matters: longer keys before shorter
+  // Inject extras (sectionCopy fields)
+  for (const [key, val] of Object.entries(extras)) {
+    html = replaceAll(html, `{{${key}}}`, escapeHtml(val))
+  }
+
+  // Scalar keys
   const scalarKeys: Array<keyof BVMSiteVariables> = [
     'businessName',
     'ownerName',

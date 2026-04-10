@@ -413,9 +413,9 @@ section { padding: 6rem 0; }
       <li>
         <a href="#services">Services</a>
         <ul class="nav-dropdown">
-          <li><a href="#services">Family Law</a></li>
-          <li><a href="#services">Corporate Law</a></li>
-          <li><a href="#services">Criminal Law</a></li>
+                    <li>Family Law</li>
+          <li>Corporate Law</li>
+          <li>Criminal Law</li>
         </ul>
       </li>
       <li><a href="#faq">FAQs</a></li>
@@ -429,9 +429,9 @@ section { padding: 6rem 0; }
 <!-- 2. TICKER -->
 <div class="ticker">
   <div class="ticker-track">
-    <span>Family Law &middot; Corporate Law &middot; Criminal Law &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
-    <span>Family Law &middot; Corporate Law &middot; Criminal Law &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
-    <span>Family Law &middot; Corporate Law &middot; Criminal Law &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
+    <span>{{services[0].name}} &middot; {{services[1].name}} &middot; {{services[2].name}} &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
+    <span>{{services[0].name}} &middot; {{services[1].name}} &middot; {{services[2].name}} &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
+    <span>{{services[0].name}} &middot; {{services[1].name}} &middot; {{services[2].name}} &middot; Dedicated Legal Service You Can Rely On &middot; Tulsa, OK &middot;</span>
   </div>
 </div>
 
@@ -453,7 +453,7 @@ section { padding: 6rem 0; }
   <div class="container">
     <div class="about-grid">
       <div>
-        <div class="about-eyebrow">Our Story</div>
+        <div class="about-eyebrow">OUR STORY</div>
         <h2>Meet Hank Beans</h2>
         <p class="about-text">At Hank &amp; Beans Attorneys at Law, Attorney Hank Beans delivers dependable results-driven legal representation to clients across Tulsa and surrounding areas. With 15 years of experience, we are committed to clear communication and outcomes that protect your rights.</p>
         <div class="about-stat">15 Years</div>
@@ -510,21 +510,21 @@ section { padding: 6rem 0; }
 <section id="services" class="section-services">
   <div class="container">
     <div class="services-heading">
-      <h2>Our Services</h2>
+      <h2>Practice Areas</h2>
     </div>
     <div class="services-gallery">
-      <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800')"></div>
+            <div class="service-gallery-card">
+        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="sg-overlay"></div>
         <h3>Family Law</h3>
       </div>
       <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800')"></div>
+        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="sg-overlay"></div>
         <h3>Corporate Law</h3>
       </div>
       <div class="service-gallery-card">
-        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800')"></div>
+        <div class="sg-bg" style="background-image:url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=800')" onerror="this.style.background='rgba(0,0,0,0.05)'"></div>
         <div class="sg-overlay"></div>
         <h3>Criminal Law</h3>
       </div>
@@ -539,26 +539,26 @@ section { padding: 6rem 0; }
 <section id="reviews" class="section-reviews">
   <div class="container">
     <div class="section-header">
-      <div class="reviews-eyebrow">Client Feedback</div>
+      <div class="reviews-eyebrow">CLIENT FEEDBACK</div>
       <h2>What People Say</h2>
     </div>
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"An outstanding experience from beginning to end. Truly top-notch service."</p>
+        <p class="review-text">An outstanding experience from beginning to end. Truly top-notch representation.</p>
         <div class="review-author">&mdash; Client, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"Professional, reliable, and exceeded all of our expectations. Highly recommend."</p>
+        <p class="review-text">Professional, reliable, and exceeded all of our expectations. Highly recommend.</p>
         <div class="review-author">&mdash; Client, Tulsa</div>
       </div>
       <div class="review-card">
         <div class="review-quote">&ldquo;</div>
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-text">"We couldn't be happier with the results. Will absolutely be returning."</p>
+        <p class="review-text">We could not be happier with the results. Will absolutely be returning.</p>
         <div class="review-author">&mdash; Client, Tulsa</div>
       </div>
     </div>
@@ -568,12 +568,12 @@ section { padding: 6rem 0; }
 <!-- 8. FAQ -->
 <section id="faq" class="section-faq">
   <div class="container">
-    <div class="faq-eyebrow">Common Questions</div>
+    <div class="faq-eyebrow">COMMON QUESTIONS</div>
     <div class="section-header">
       <h2>Frequently Asked Questions</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
+            <div class="faq-item">
         <div class="faq-question">Do you offer free consultations?</div>
         <div class="faq-answer"><p>Yes, we offer a free 30-minute initial consultation.</p></div>
       </div>
@@ -621,7 +621,7 @@ section { padding: 6rem 0; }
 <!-- 10. CTA BANNER -->
 <section class="cta-banner">
   <div class="container">
-    <h2>Trusted Legal Guidance in Tulsa, Oklahoma</h2>
+    <h2>Get the Representation You Deserve</h2>
     <a href="#contact" class="btn-primary">Schedule a Consultation</a>
   </div>
 </section>
@@ -673,9 +673,9 @@ section { padding: 6rem 0; }
       <div>
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">Family Law</a></li>
-          <li><a href="#services">Corporate Law</a></li>
-          <li><a href="#services">Criminal Law</a></li>
+                    <li>Family Law</li>
+          <li>Corporate Law</li>
+          <li>Criminal Law</li>
         </ul>
       </div>
       <div>
@@ -688,7 +688,7 @@ section { padding: 6rem 0; }
       </div>
     </div>
     <div class="footer-bottom">
-      <div><span class="seo-badge seo-indexed">Google Indexed</span></div>
+      <div><span class="seo-badge" data-status="indexed"></span></div>
       <div>Powered by BVM Digital &middot; Bruno AI &middot; &copy; 2026</div>
     </div>
   </div>
@@ -711,6 +711,10 @@ document.querySelectorAll('.faq-question').forEach(function(q) {
 window.addEventListener('scroll', function() {
   document.querySelector('.nav').classList.toggle('scrolled', window.scrollY > 50);
 });
+</script>
+<script>
+/* SEO Badge */
+(function(){var b=document.querySelector('.seo-badge');if(!b)return;var s=b.dataset.status;var m={'not-submitted':['#9ca3af','SEO Pending'],'submitted':['#f59e0b','Google Submitted'],'indexed':['#22c55e','Google Indexed']};var r=m[s]||m['not-submitted'];b.innerHTML='<span style="width:8px;height:8px;border-radius:50%;background:'+r[0]+';display:inline-block;margin-right:6px"></span>'+r[1];})();
 </script>
 </body>
 </html>

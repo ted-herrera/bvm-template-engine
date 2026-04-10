@@ -1,4 +1,5 @@
 import { getPhotos, hasCategory } from './photos'
+import { SECTION_COPY_MAP, SectionCopy } from './sectionCopy'
 
 // ── Canonical enums ──
 
@@ -22,6 +23,7 @@ export interface NormalizedBusiness {
   modifiers: string[]
   heroPhotoUrl: string
   servicePhotoUrls: string[]
+  sectionCopy: SectionCopy
   debugReport: {
     matchedPhrase: string
     resolvedCategory: string
@@ -347,10 +349,40 @@ export function normalize(
   const heroPhotoUrl = photos.hero
   const servicePhotoUrls = photos.services
 
-  // 12. Build debug report
+  // 12. Resolve sectionCopy with brandTone modifiers
+  const baseCopy = SECTION_COPY_MAP[primaryCategory] || SECTION_COPY_MAP['default']
+  const sectionCopy: SectionCopy = JSON.parse(JSON.stringify(baseCopy))
+
+  const uniqueTones = unique(brandTone)
+  if (uniqueTones.includes('premium')) {
+    for (const key of Object.keys(sectionCopy) as Array<keyof SectionCopy>) {
+      const val = sectionCopy[key]
+      if (typeof val === 'string') {
+        (sectionCopy as any)[key] = val.replace(/\baffordable\b/gi, 'exceptional')
+      }
+    }
+    sectionCopy.trustBadges = sectionCopy.trustBadges.map(
+      (b) => b.replace(/\baffordable\b/gi, 'exceptional'),
+    ) as [string, string, string, string]
+  }
+  if (uniqueTones.includes('authority')) {
+    if (!/^(get|call|schedule|protect|start|secure|book|contact|act|claim|demand|fight)\b/i.test(sectionCopy.ctaHeadline)) {
+      sectionCopy.ctaHeadline = 'Act Now — ' + sectionCopy.ctaHeadline
+    }
+  }
+  if (uniqueTones.includes('community')) {
+    const hasLocal = sectionCopy.trustBadges.some(
+      (b) => /locally owned|neighborhood/i.test(b),
+    )
+    if (!hasLocal) {
+      sectionCopy.trustBadges[3] = 'Locally Owned & Operated'
+    }
+  }
+
+  // 13. Build debug report
   const reasoning = primaryCategory === 'default'
     ? `No category match found for "${rawInput.slice(0, 60)}"; using default photos.`
-    : `Matched "${matchedPhrase}" → category "${primaryCategory}"${subtype ? ` (subtype: ${subtype})` : ''} with ${brandTone.length ? brandTone.join('+') : 'neutral'} tone.`
+    : `Matched "${matchedPhrase}" → category "${primaryCategory}"${subtype ? ` (subtype: ${subtype})` : ''} with ${uniqueTones.length ? uniqueTones.join('+') : 'neutral'} tone.`
 
   return {
     rawInput,
@@ -360,10 +392,11 @@ export function normalize(
     matchedSignals: unique(matchedSignals),
     serviceMode: unique(serviceMode),
     audience: unique(audience),
-    brandTone: unique(brandTone),
+    brandTone: uniqueTones,
     modifiers: unique(modifiers),
     heroPhotoUrl,
     servicePhotoUrls,
+    sectionCopy,
     debugReport: {
       matchedPhrase,
       resolvedCategory: primaryCategory + (subtype ? `/${subtype}` : ''),
